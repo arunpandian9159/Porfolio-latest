@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const Hero = () => {
@@ -7,66 +7,73 @@ const Hero = () => {
   const particlesRef = useRef(null);
 
   useEffect(() => {
-    // Hero animation timeline
-    const timeline = anime.timeline({ easing: 'easeOutExpo' });
-
-    timeline
-      .add({
-        targets: '.profile-frame',
+    // Hero animation timeline - sequential animations
+    const runAnimations = async () => {
+      await animate('.profile-frame', {
         opacity: [0, 1],
         scale: [0.8, 1],
-        duration: 1000
-      })
-      .add({
-        targets: '.frame-border-anim',
+        duration: 1000,
+        easing: 'easeOutExpo'
+      }).finished;
+
+      animate('.frame-border-anim', {
         opacity: [0, 1],
         scale: [1.2, 1],
-        duration: 600
-      }, '-=600')
-      .add({
-        targets: '.quick-stat',
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+
+      animate('.quick-stat', {
         opacity: [0, 1],
         translateY: [20, 0],
-        delay: anime.stagger(100),
-        duration: 600
-      }, '-=300')
-      .add({
-        targets: '.hero-intro',
+        delay: stagger(100),
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+
+      animate('.hero-intro', {
         opacity: [0, 1],
         translateX: [-30, 0],
-        duration: 600
-      }, '-=400')
-      .add({
-        targets: '.hero-name',
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+
+      await animate('.hero-name', {
         opacity: [0, 1],
         translateX: [-30, 0],
-        duration: 800
-      }, '-=400')
-      .add({
-        targets: '.hero-role',
+        duration: 800,
+        easing: 'easeOutExpo'
+      }).finished;
+
+      animate('.hero-role', {
         opacity: [0, 1],
         translateX: [-20, 0],
-        duration: 600
-      }, '-=500')
-      .add({
-        targets: '.role-underline',
-        width: [0, 100],
-        duration: 600
-      }, '-=400')
-      .add({
-        targets: '.hero-bio',
-        opacity: [0, 1],
-        translateY: [20, 0],
-        duration: 600
-      }, '-=300')
-      .add({
-        targets: '.hero-cta',
-        opacity: [0, 1],
-        translateY: [20, 0],
-        duration: 600
-      }, '-=200');
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
 
-    // Create particles
+      animate('.role-underline', {
+        width: [0, 100],
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+
+      animate('.hero-bio', {
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+
+      animate('.hero-cta', {
+        opacity: [0, 1],
+        translateY: [20, 0],
+        duration: 600,
+        easing: 'easeOutExpo'
+      });
+    };
+
+    runAnimations();
     createParticles();
   }, []);
 
@@ -92,12 +99,14 @@ const Hero = () => {
 
   const animateParticle = (particle) => {
     const duration = Math.random() * 5000 + 3000;
-    anime({
-      targets: particle,
-      translateX: () => anime.random(-100, 100),
-      translateY: () => anime.random(-100, 100),
-      opacity: [{ value: 0.1 }, { value: 0.6 }],
-      scale: [{ value: 0.5 }, { value: 1.5 }],
+    const randomX = (Math.random() - 0.5) * 200;
+    const randomY = (Math.random() - 0.5) * 200;
+    
+    animate(particle, {
+      translateX: randomX,
+      translateY: randomY,
+      opacity: [0.1, 0.6, 0.1],
+      scale: [0.5, 1.5, 0.5],
       duration,
       delay: Math.random() * 2000,
       easing: 'easeInOutSine',
@@ -110,9 +119,9 @@ const Hero = () => {
   return (
     <section id="hero" ref={heroRef} className="min-h-screen relative flex overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-oxford-navy-dark via-oxford-navy to-cerulean/30">
+      <div className="absolute inset-0 bg-linear-to-br from-oxford-navy-dark via-oxford-navy to-cerulean/30">
         {/* Diagonal slice */}
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-cerulean/10" 
+        <div className="absolute inset-0 bg-linear-to-br from-transparent via-transparent to-cerulean/10" 
              style={{ clipPath: 'polygon(100% 0, 100% 100%, 40% 100%)' }}></div>
         {/* Speed lines */}
         <div className="speed-line" style={{ top: '30%', left: '-100%' }}></div>
@@ -131,7 +140,7 @@ const Hero = () => {
             
             {/* Avatar */}
             <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden relative">
-              <div className="w-full h-full bg-gradient-to-br from-cerulean to-oxford-navy-light flex items-center justify-center">
+              <div className="w-full h-full bg-linear-to-br from-cerulean to-oxford-navy-light flex items-center justify-center">
                 <span className="font-display text-6xl md:text-7xl font-black text-honeydew text-glow-blue">AC</span>
               </div>
               {/* Aura */}
@@ -170,7 +179,7 @@ const Hero = () => {
           
           <div className="hero-role mb-5 opacity-0">
             <span className="text-frosted-blue text-xl font-semibold">{profile.headline}</span>
-            <div className="role-underline h-0.5 bg-gradient-to-r from-punch-red to-frosted-blue mt-2 w-0"></div>
+            <div className="role-underline h-0.5 bg-linear-to-r from-punch-red to-frosted-blue mt-2 w-0"></div>
           </div>
           
           <p className="hero-bio text-frosted-blue/80 text-lg mb-8 max-w-lg mx-auto md:mx-0 opacity-0">

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const TimelineItem = ({ exp, index }) => {
@@ -10,8 +10,7 @@ const TimelineItem = ({ exp, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: itemRef.current,
+            animate(itemRef.current, {
               opacity: [0, 1],
               translateX: [-30, 0],
               duration: 800,
@@ -62,23 +61,20 @@ const Experience = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.exp-header .section-tag',
+            animate('.exp-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.exp-header .section-title',
+            animate('.exp-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.exp-header .title-decoration',
+            animate('.exp-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,
@@ -98,7 +94,7 @@ const Experience = () => {
 
   return (
     <section id="experience" ref={sectionRef} className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-oxford-navy-dark to-oxford-navy -z-10"></div>
+      <div className="absolute inset-0 bg-linear-to-b from-oxford-navy-dark to-oxford-navy -z-10"></div>
       
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
@@ -109,13 +105,13 @@ const Experience = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Work <span className="text-punch-red">Experience</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto pl-8">
           {/* Line */}
-          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-punch-red to-frosted-blue"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-punch-red to-frosted-blue"></div>
           
           {experience.map((exp, i) => (
             <TimelineItem key={i} exp={exp} index={i} />

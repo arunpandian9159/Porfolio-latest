@@ -30,8 +30,8 @@ const EducationCard = ({ edu, index }) => {
   }, [index]);
 
   return (
-    <div ref={cardRef} className={`opacity-0 ${edu.isMain ? 'bg-gradient-to-br from-punch-red/10 to-oxford-navy/50 border-punch-red' : 'bg-oxford-navy-dark/50 border-frosted-blue/15'} border rounded-2xl p-7 text-center transition-all hover:-translate-y-1 hover:border-punch-red`}>
-      <div className="w-16 h-16 bg-gradient-to-br from-punch-red to-cerulean rounded-full flex items-center justify-center mx-auto mb-5 text-2xl text-honeydew">
+    <div ref={cardRef} className={`opacity-0 ${edu.isMain ? 'bg-linear-to-br from-punch-red/10 to-oxford-navy/50 border-punch-red' : 'bg-oxford-navy-dark/50 border-frosted-blue/15'} border rounded-2xl p-7 text-center transition-all hover:-translate-y-1 hover:border-punch-red`}>
+      <div className="w-16 h-16 bg-linear-to-br from-punch-red to-cerulean rounded-full flex items-center justify-center mx-auto mb-5 text-2xl text-honeydew">
         <i className={`fas ${edu.icon}`}></i>
       </div>
       <span className="inline-block px-4 py-1 bg-frosted-blue/10 rounded-full text-sm text-frosted-blue mb-4">{edu.year}</span>
@@ -100,7 +100,7 @@ const Education = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Education <span className="text-punch-red">Journey</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Cards */}

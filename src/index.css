@@ -1,8 +1,8 @@
+/* Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
 @import "tailwindcss";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
-
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
 /* Custom Color Palette */
 @theme {
@@ -143,31 +143,6 @@ body {
 
 .marker-pulse {
   animation: pulse 2s infinite;
-}
-
-/* Scroll Arrow Animation */
-@keyframes scrollDot {
-  0% {
-    opacity: 1;
-    top: 8px;
-  }
-
-  100% {
-    opacity: 0;
-    top: 30px;
-  }
-}
-
-@keyframes bounce {
-
-  0%,
-  100% {
-    transform: translateX(-50%) translateY(0);
-  }
-
-  50% {
-    transform: translateX(-50%) translateY(-10px);
-  }
 }
 
 /* Certification Shine Effect */

@@ -29,7 +29,7 @@ const CertCard = ({ cert, index }) => {
   }, [index]);
 
   return (
-    <div ref={cardRef} className="cert-card opacity-0 bg-gradient-to-br from-oxford-navy/80 to-cerulean/20 border border-frosted-blue/20 rounded-2xl p-7 text-center transition-all hover:border-punch-red hover:-translate-y-1 relative overflow-hidden">
+    <div ref={cardRef} className="cert-card opacity-0 bg-linear-to-br from-oxford-navy/80 to-cerulean/20 border border-frosted-blue/20 rounded-2xl p-7 text-center transition-all hover:border-punch-red hover:-translate-y-1 relative overflow-hidden">
       <div className="text-4xl text-frosted-blue mb-4">
         <i className={cert.icon}></i>
       </div>
@@ -67,7 +67,7 @@ const AchievementItem = ({ item, index }) => {
 
   return (
     <div ref={itemRef} className="opacity-0 flex items-center gap-4 bg-oxford-navy/50 border border-frosted-blue/15 rounded-xl p-5 transition-all hover:border-punch-red hover:translate-x-1">
-      <div className="w-11 h-11 bg-gradient-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center flex-shrink-0">
+      <div className="w-11 h-11 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center shrink-0">
         <i className={`${item.icon} text-honeydew`}></i>
       </div>
       <span className="text-frosted-blue/90">{item.text}</span>
@@ -128,7 +128,7 @@ const Certifications = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Certifications & <span className="text-punch-red">Achievements</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Certifications Grid */}

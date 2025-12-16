@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 
 const Loader = ({ onComplete }) => {
   const loaderRef = useRef(null);
@@ -10,24 +10,21 @@ const Loader = ({ onComplete }) => {
     const progress = document.querySelector('.loader-progress');
 
     // Animate letters
-    anime({
-      targets: letters,
+    animate(letters, {
       opacity: [0, 1],
       translateY: [20, 0],
-      delay: anime.stagger(100),
+      delay: stagger(100),
       duration: 600,
       easing: 'easeOutExpo'
     });
 
     // Animate progress bar
-    anime({
-      targets: progress,
+    animate(progress, {
       width: '100%',
       duration: 2000,
       easing: 'easeInOutQuart',
       complete: () => {
-        anime({
-          targets: loaderRef.current,
+        animate(loaderRef.current, {
           opacity: 0,
           duration: 500,
           easing: 'easeOutExpo',

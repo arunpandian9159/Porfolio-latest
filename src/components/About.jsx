@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
 import { useCountUp } from '../hooks/useAnime';
 
@@ -13,8 +13,7 @@ const StatCard = ({ icon, value, label, delay }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setTimeout(() => {
-              anime({
-                targets: cardRef.current,
+              animate(cardRef.current, {
                 opacity: [0, 1],
                 translateY: [20, 0],
                 duration: 600,
@@ -32,7 +31,7 @@ const StatCard = ({ icon, value, label, delay }) => {
   }, [delay]);
 
   return (
-    <div ref={cardRef} className="opacity-0 bg-gradient-to-br from-oxford-navy/80 to-cerulean/30 border border-frosted-blue/20 rounded-2xl p-6 text-center transition-all hover:-translate-y-1 hover:border-punch-red hover:glow-red">
+    <div ref={cardRef} className="opacity-0 bg-linear-to-br from-oxford-navy/80 to-cerulean/30 border border-frosted-blue/20 rounded-2xl p-6 text-center transition-all hover:-translate-y-1 hover:border-punch-red hover:glow-red">
       <div className="text-3xl text-frosted-blue mb-3">
         <i className={icon}></i>
       </div>
@@ -52,30 +51,26 @@ const About = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.about-header .section-tag',
+            animate('.about-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.about-header .section-title',
+            animate('.about-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.about-header .title-decoration',
+            animate('.about-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.about-card',
+            animate('.about-card', {
               opacity: [0, 1],
               translateX: [-30, 0],
               duration: 800,
@@ -111,7 +106,7 @@ const About = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             About <span className="text-punch-red">Me</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Content */}

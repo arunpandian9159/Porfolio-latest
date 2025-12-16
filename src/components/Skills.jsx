@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const SkillCategory = ({ title, icon, skills, index }) => {
@@ -10,19 +10,17 @@ const SkillCategory = ({ title, icon, skills, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: categoryRef.current,
+            animate(categoryRef.current, {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 600,
               delay: index * 100,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: categoryRef.current.querySelectorAll('.skill-tag'),
+            animate(categoryRef.current.querySelectorAll('.skill-tag'), {
               opacity: [0, 1],
               scale: [0.8, 1],
-              delay: anime.stagger(50, { start: 300 + index * 100 }),
+              delay: stagger(50, { start: 300 + index * 100 }),
               duration: 400,
               easing: 'easeOutExpo'
             });
@@ -39,7 +37,7 @@ const SkillCategory = ({ title, icon, skills, index }) => {
   return (
     <div ref={categoryRef} className="opacity-0 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl p-7 transition-all hover:border-punch-red hover:-translate-y-1">
       <div className="flex items-center gap-4 mb-5">
-        <div className="w-12 h-12 bg-gradient-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
+        <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
           <i className={icon}></i>
         </div>
         <h3 className="font-display text-xl font-bold">{title}</h3>
@@ -63,23 +61,20 @@ const Skills = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.skills-header .section-tag',
+            animate('.skills-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.skills-header .section-title',
+            animate('.skills-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.skills-header .title-decoration',
+            animate('.skills-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,
@@ -115,7 +110,7 @@ const Skills = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Skills & <span className="text-punch-red">Arsenal</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Categories Grid */}

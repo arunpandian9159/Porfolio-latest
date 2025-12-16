@@ -73,7 +73,7 @@ const Contact = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Let's <span className="text-punch-red">Connect</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Content */}
@@ -86,7 +86,7 @@ const Contact = () => {
             
             <div className="space-y-5">
               <a href={`mailto:${profile.email}`} className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl transition-all hover:border-punch-red hover:translate-x-2 opacity-0">
-                <div className="w-12 h-12 bg-gradient-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
+                <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
                   <i className="fas fa-envelope"></i>
                 </div>
                 <div>
@@ -96,7 +96,7 @@ const Contact = () => {
               </a>
               
               <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl transition-all hover:border-punch-red hover:translate-x-2 opacity-0">
-                <div className="w-12 h-12 bg-gradient-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
+                <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
                   <i className="fas fa-phone"></i>
                 </div>
                 <div>
@@ -106,7 +106,7 @@ const Contact = () => {
               </a>
               
               <div className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl opacity-0">
-                <div className="w-12 h-12 bg-gradient-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
+                <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
                   <i className="fas fa-map-marker-alt"></i>
                 </div>
                 <div>

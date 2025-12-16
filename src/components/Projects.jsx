@@ -31,9 +31,9 @@ const FeaturedProject = ({ project, index }) => {
   return (
     <div ref={cardRef} className={`opacity-0 grid md:grid-cols-[1fr_1.2fr] bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl overflow-hidden transition-all hover:border-punch-red hover:-translate-y-1 hover:shadow-2xl ${index % 2 === 1 ? 'md:grid-cols-[1.2fr_1fr]' : ''}`}>
       {/* Image */}
-      <div className={`relative min-h-72 bg-gradient-to-br from-cerulean to-oxford-navy-light flex items-center justify-center ${index % 2 === 1 ? 'md:order-2' : ''}`}>
+      <div className={`relative min-h-72 bg-linear-to-br from-cerulean to-oxford-navy-light flex items-center justify-center ${index % 2 === 1 ? 'md:order-2' : ''}`}>
         <i className={`${project.icon} text-7xl text-honeydew/30`}></i>
-        <div className="absolute inset-0 bg-gradient-to-br from-punch-red/20 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-punch-red/20 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
       </div>
       
       {/* Info */}
@@ -192,7 +192,7 @@ const Projects = () => {
           <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
             Featured <span className="text-punch-red">Projects</span>
           </h2>
-          <div className="title-decoration w-0 h-1 bg-gradient-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
+          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
         </div>
 
         {/* Featured Projects */}
