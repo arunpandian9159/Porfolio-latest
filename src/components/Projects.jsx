@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const FeaturedProject = ({ project, index }) => {
@@ -10,8 +10,7 @@ const FeaturedProject = ({ project, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: cardRef.current,
+            animate(cardRef.current, {
               opacity: [0, 1],
               translateY: [50, 0],
               duration: 800,
@@ -89,8 +88,7 @@ const MiniProject = ({ project, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: cardRef.current,
+            animate(cardRef.current, {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 600,
@@ -145,23 +143,20 @@ const Projects = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.proj-header .section-tag',
+            animate('.proj-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.proj-header .section-title',
+            animate('.proj-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.proj-header .title-decoration',
+            animate('.proj-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,

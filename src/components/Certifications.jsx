@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const CertCard = ({ cert, index }) => {
@@ -10,8 +10,7 @@ const CertCard = ({ cert, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: cardRef.current,
+            animate(cardRef.current, {
               opacity: [0, 1],
               rotateY: [45, 0],
               duration: 800,
@@ -47,8 +46,7 @@ const AchievementItem = ({ item, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: itemRef.current,
+            animate(itemRef.current, {
               opacity: [0, 1],
               translateX: [-30, 0],
               duration: 600,
@@ -83,23 +81,20 @@ const Certifications = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.cert-header .section-tag',
+            animate('.cert-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.cert-header .section-title',
+            animate('.cert-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.cert-header .title-decoration',
+            animate('.cert-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const EducationCard = ({ edu, index }) => {
@@ -10,8 +10,7 @@ const EducationCard = ({ edu, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: cardRef.current,
+            animate(cardRef.current, {
               opacity: [0, 1],
               translateY: [30, 0],
               scale: [0.95, 1],
@@ -53,23 +52,20 @@ const Education = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.edu-header .section-tag',
+            animate('.edu-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.edu-header .section-title',
+            animate('.edu-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.edu-header .title-decoration',
+            animate('.edu-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,

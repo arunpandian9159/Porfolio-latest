@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import anime from 'animejs';
+import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
 
 const Contact = () => {
@@ -10,38 +10,33 @@ const Contact = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            anime({
-              targets: '.contact-header .section-tag',
+            animate('.contact-header .section-tag', {
               opacity: [0, 1],
               translateY: [-20, 0],
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.contact-header .section-title',
+            animate('.contact-header .section-title', {
               opacity: [0, 1],
               translateY: [30, 0],
               duration: 800,
               delay: 200,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.contact-header .title-decoration',
+            animate('.contact-header .title-decoration', {
               width: [0, 80],
               duration: 600,
               delay: 400,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.contact-method-item',
+            animate('.contact-method-item', {
               opacity: [0, 1],
               translateX: [-30, 0],
-              delay: anime.stagger(100, { start: 600 }),
+              delay: stagger(100, { start: 600 }),
               duration: 600,
               easing: 'easeOutExpo'
             });
-            anime({
-              targets: '.social-connect-box',
+            animate('.social-connect-box', {
               opacity: [0, 1],
               scale: [0.9, 1],
               duration: 800,
