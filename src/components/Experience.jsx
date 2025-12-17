@@ -10,12 +10,15 @@ const TimelineItem = ({ exp, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate(itemRef.current, {
-              opacity: [0, 1],
-              translateX: [-30, 0],
-              duration: 800,
-              delay: index * 200,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate(itemRef.current, {
+                opacity: [0, 1],
+                translateX: [-30, 0],
+                duration: 400,
+                delay: index * 100,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
@@ -61,24 +64,27 @@ const Experience = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.exp-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.exp-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.exp-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.exp-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.exp-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.exp-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }

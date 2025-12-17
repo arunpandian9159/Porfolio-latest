@@ -10,12 +10,15 @@ const FeaturedProject = ({ project, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate(cardRef.current, {
-              opacity: [0, 1],
-              translateY: [50, 0],
-              duration: 800,
-              delay: index * 200,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate(cardRef.current, {
+                opacity: [0, 1],
+                translateY: [50, 0],
+                duration: 400,
+                delay: index * 100,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
@@ -88,12 +91,15 @@ const MiniProject = ({ project, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate(cardRef.current, {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 600,
-              delay: index * 100,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate(cardRef.current, {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 300,
+                delay: index * 50,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
@@ -143,24 +149,27 @@ const Projects = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.proj-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.proj-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.proj-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.proj-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.proj-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.proj-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }

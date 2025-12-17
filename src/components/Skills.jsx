@@ -10,19 +10,22 @@ const SkillCategory = ({ title, icon, skills, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate(categoryRef.current, {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 600,
-              delay: index * 100,
-              easing: 'easeOutExpo'
-            });
-            animate(categoryRef.current.querySelectorAll('.skill-tag'), {
-              opacity: [0, 1],
-              scale: [0.8, 1],
-              delay: stagger(50, { start: 300 + index * 100 }),
-              duration: 400,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate(categoryRef.current, {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 300,
+                delay: index * 50,
+                easing: 'easeOutExpo'
+              });
+              animate(categoryRef.current.querySelectorAll('.skill-tag'), {
+                opacity: [0, 1],
+                scale: [0.8, 1],
+                delay: stagger(30, { start: 150 + index * 50 }),
+                duration: 200,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
@@ -61,24 +64,27 @@ const Skills = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.skills-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.skills-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.skills-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.skills-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.skills-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.skills-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }

@@ -12,14 +12,17 @@ const StatCard = ({ icon, value, label, delay }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
-              animate(cardRef.current, {
-                opacity: [0, 1],
-                translateY: [20, 0],
-                duration: 600,
-                easing: 'easeOutExpo'
-              });
-            }, delay);
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              setTimeout(() => {
+                animate(cardRef.current, {
+                  opacity: [0, 1],
+                  translateY: [20, 0],
+                  duration: 300,
+                  easing: 'easeOutExpo'
+                });
+              }, delay);
+            });
             observer.unobserve(entry.target);
           }
         });
@@ -51,31 +54,34 @@ const About = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.about-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.about-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.about-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
-            });
-            animate('.about-card', {
-              opacity: [0, 1],
-              translateX: [-30, 0],
-              duration: 800,
-              delay: 600,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.about-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.about-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.about-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
+              animate('.about-card', {
+                opacity: [0, 1],
+                translateX: [-30, 0],
+                duration: 400,
+                delay: 300,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }

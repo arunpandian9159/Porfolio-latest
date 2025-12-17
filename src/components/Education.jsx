@@ -10,13 +10,16 @@ const EducationCard = ({ edu, index }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate(cardRef.current, {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              scale: [0.95, 1],
-              duration: 700,
-              delay: index * 150,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate(cardRef.current, {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                scale: [0.95, 1],
+                duration: 350,
+                delay: index * 75,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
@@ -52,24 +55,27 @@ const Education = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.edu-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.edu-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.edu-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.edu-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.edu-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.edu-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }

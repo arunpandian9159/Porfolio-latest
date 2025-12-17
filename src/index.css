@@ -26,6 +26,8 @@
 /* Base Styles */
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -85,9 +87,40 @@ body {
   }
 }
 
-/* Global smooth transitions */
-* {
+/* GPU acceleration for animated elements */
+.opacity-0,
+[class*="translate"],
+.about-card,
+.stat-card,
+.section-tag,
+.section-title,
+.title-decoration,
+.skill-tag,
+.profile-frame,
+.quick-stat,
+.hero-intro,
+.hero-name,
+.hero-role,
+.hero-bio,
+.hero-cta {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Transition timing for interactive elements only */
+a,
+button,
+input,
+textarea,
+.transition-all,
+[class*="hover:"] {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Contain for sections to improve paint performance */
+section {
+  contain: layout style;
 }
 
 /* Speed Lines Animation */

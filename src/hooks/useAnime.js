@@ -15,7 +15,10 @@ export const useAnimeOnView = (animationConfig, options = {}) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !hasAnimated.current) {
               hasAnimated.current = true;
-              animate(element, animationConfig);
+              // Use requestAnimationFrame for smoother animation start
+              requestAnimationFrame(() => {
+                animate(element, animationConfig);
+              });
               if (!options.repeat) {
                 observer.unobserve(element);
               }
@@ -33,7 +36,7 @@ export const useAnimeOnView = (animationConfig, options = {}) => {
   return ref;
 };
 
-export const useCountUp = (targetValue, duration = 2000) => {
+export const useCountUp = (targetValue, duration = 1000) => {
   const ref = useRef(null);
   const hasAnimated = useRef(false);
 
@@ -47,14 +50,17 @@ export const useCountUp = (targetValue, duration = 2000) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !hasAnimated.current) {
               hasAnimated.current = true;
-              const obj = { value: 0 };
-              animate(obj, {
-                value: targetValue,
-                duration,
-                easing: 'easeInOutExpo',
-                update: () => {
-                  element.textContent = Math.round(obj.value);
-                },
+              // Use requestAnimationFrame for smoother animation start
+              requestAnimationFrame(() => {
+                const obj = { value: 0 };
+                animate(obj, {
+                  value: targetValue,
+                  duration,
+                  easing: 'easeInOutExpo',
+                  update: () => {
+                    element.textContent = Math.round(obj.value);
+                  },
+                });
               });
               observer.unobserve(element);
             }

@@ -10,38 +10,41 @@ const Contact = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            animate('.contact-header .section-tag', {
-              opacity: [0, 1],
-              translateY: [-20, 0],
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.contact-header .section-title', {
-              opacity: [0, 1],
-              translateY: [30, 0],
-              duration: 800,
-              delay: 200,
-              easing: 'easeOutExpo'
-            });
-            animate('.contact-header .title-decoration', {
-              width: [0, 80],
-              duration: 600,
-              delay: 400,
-              easing: 'easeOutExpo'
-            });
-            animate('.contact-method-item', {
-              opacity: [0, 1],
-              translateX: [-30, 0],
-              delay: stagger(100, { start: 600 }),
-              duration: 600,
-              easing: 'easeOutExpo'
-            });
-            animate('.social-connect-box', {
-              opacity: [0, 1],
-              scale: [0.9, 1],
-              duration: 800,
-              delay: 800,
-              easing: 'easeOutExpo'
+            // Use requestAnimationFrame for smoother animation start
+            requestAnimationFrame(() => {
+              animate('.contact-header .section-tag', {
+                opacity: [0, 1],
+                translateY: [-20, 0],
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.contact-header .section-title', {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 400,
+                delay: 100,
+                easing: 'easeOutExpo'
+              });
+              animate('.contact-header .title-decoration', {
+                width: [0, 80],
+                duration: 300,
+                delay: 200,
+                easing: 'easeOutExpo'
+              });
+              animate('.contact-method-item', {
+                opacity: [0, 1],
+                translateX: [-30, 0],
+                delay: stagger(50, { start: 300 }),
+                duration: 300,
+                easing: 'easeOutExpo'
+              });
+              animate('.social-connect-box', {
+                opacity: [0, 1],
+                scale: [0.9, 1],
+                duration: 400,
+                delay: 400,
+                easing: 'easeOutExpo'
+              });
             });
             observer.unobserve(entry.target);
           }
