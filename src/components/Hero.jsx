@@ -214,8 +214,8 @@ const Hero = ({ isLoading }) => {
             <span className="text-frosted-blue text-lg tracking-wider">Hello, I'm</span>
           </div>
           
-          <h1 className="hero-name font-display text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 opacity-0">
-            <span className="block text-honeydew">{profile.firstName}</span>
+          <h1 className="hero-name font-display text-4xl md:text-5xl lg:text-7xl font-black leading-tight mb-4 opacity-0 whitespace-nowrap">
+            <span className="text-honeydew">{profile.firstName}</span>{' '}
             <span className="text-punch-red text-glow-red">{profile.lastName}</span>
           </h1>
           

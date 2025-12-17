@@ -44,7 +44,7 @@ const Loader = ({ onComplete }) => {
       // Step 2: Animate progress bar (0ms - 700ms)
       animate(progress, {
         width: '100%',
-        duration: 700,
+        duration: 800,
         easing: 'easeInOutQuart'
       });
 
@@ -54,7 +54,7 @@ const Loader = ({ onComplete }) => {
           opacity: [1, 0],
           translateY: [0, -20],
           delay: stagger(30, { from: 'center' }),
-          duration: 200,
+          duration: 300,
           easing: 'easeOutQuart'
         });
 
