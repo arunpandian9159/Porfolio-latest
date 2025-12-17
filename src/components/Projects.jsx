@@ -1,34 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate, useCardReveal } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const FeaturedProject = ({ project, index }) => {
-  const cardRef = useRef(null);
+const FeaturedProject = memo(({ project, index }) => {
+  const animationConfig = {
+    opacity: [0, 1],
+    translateY: [50, 0],
+    duration: 400,
+    delay: index * 100,
+    easing: 'easeOutExpo'
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(cardRef.current, {
-                opacity: [0, 1],
-                translateY: [50, 0],
-                duration: 400,
-                delay: index * 100,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+  const cardRef = useIntersectionAnimate(animationConfig);
 
   return (
     <div ref={cardRef} className={`opacity-0 grid md:grid-cols-[1fr_1.2fr] bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl overflow-hidden transition-all hover:border-punch-red hover:-translate-y-1 hover:shadow-2xl ${index % 2 === 1 ? 'md:grid-cols-[1.2fr_1fr]' : ''}`}>
@@ -81,35 +66,12 @@ const FeaturedProject = ({ project, index }) => {
       </div>
     </div>
   );
-};
+});
 
-const MiniProject = ({ project, index }) => {
-  const cardRef = useRef(null);
+FeaturedProject.displayName = 'FeaturedProject';
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(cardRef.current, {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 300,
-                delay: index * 50,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+const MiniProject = memo(({ project, index }) => {
+  const cardRef = useCardReveal(index);
 
   return (
     <div ref={cardRef} className="opacity-0 bg-oxford-navy/50 border border-frosted-blue/15 rounded-2xl p-6 transition-all hover:border-punch-red hover:-translate-y-1">
@@ -139,65 +101,51 @@ const MiniProject = ({ project, index }) => {
       </div>
     </div>
   );
-};
+});
+
+MiniProject.displayName = 'MiniProject';
 
 const Projects = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.proj-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.proj-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.proj-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.proj-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.proj-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.proj-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
   }, []);
 
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
+
   const { projects } = profileData;
-  const featured = projects.filter(p => p.featured);
-  const other = projects.filter(p => !p.featured);
+  
+  // Memoize filtered arrays to prevent recalculation on re-renders
+  const featured = useMemo(() => projects.filter(p => p.featured), [projects]);
+  const other = useMemo(() => projects.filter(p => !p.featured), [projects]);
 
   return (
     <section id="projects" ref={sectionRef} className="py-24 bg-oxford-navy-dark">
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="proj-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Portfolio
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            Featured <span className="text-punch-red">Projects</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Portfolio"
+          title="Featured"
+          highlight="Projects"
+          className="proj-header"
+        />
 
         {/* Featured Projects */}
         <div className="space-y-10 mb-16">

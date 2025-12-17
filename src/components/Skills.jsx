@@ -1,41 +1,28 @@
-import { useEffect, useRef } from 'react';
+import { memo, useCallback } from 'react';
 import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const SkillCategory = ({ title, icon, skills, index }) => {
-  const categoryRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(categoryRef.current, {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 300,
-                delay: index * 50,
-                easing: 'easeOutExpo'
-              });
-              animate(categoryRef.current.querySelectorAll('.skill-tag'), {
-                opacity: [0, 1],
-                scale: [0.8, 1],
-                delay: stagger(30, { start: 150 + index * 50 }),
-                duration: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (categoryRef.current) observer.observe(categoryRef.current);
-    return () => observer.disconnect();
+const SkillCategory = memo(({ title, icon, skills, index }) => {
+  const runAnimation = useCallback((element) => {
+    animate(element, {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 300,
+      delay: index * 50,
+      easing: 'easeOutExpo'
+    });
+    animate(element.querySelectorAll('.skill-tag'), {
+      opacity: [0, 1],
+      scale: [0.8, 1],
+      delay: stagger(30, { start: 150 + index * 50 }),
+      duration: 200,
+      easing: 'easeOutExpo'
+    });
   }, [index]);
+
+  const categoryRef = useIntersectionAnimate(runAnimation);
 
   return (
     <div ref={categoryRef} className="opacity-0 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl p-7 transition-all hover:border-punch-red hover:-translate-y-1">
@@ -54,47 +41,34 @@ const SkillCategory = ({ title, icon, skills, index }) => {
       </div>
     </div>
   );
-};
+});
+
+SkillCategory.displayName = 'SkillCategory';
 
 const Skills = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.skills-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.skills-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.skills-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.skills-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.skills-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.skills-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
   }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { skills } = profileData;
 
@@ -109,15 +83,12 @@ const Skills = () => {
     <section id="skills" ref={sectionRef} className="pt-15 bg-oxford-navy">
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="skills-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Expertise
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            Skills & <span className="text-punch-red">Arsenal</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Expertise"
+          title="Skills &"
+          highlight="Arsenal"
+          className="skills-header"
+        />
 
         {/* Categories Grid */}
         <div className="grid md:grid-cols-2 gap-7">
