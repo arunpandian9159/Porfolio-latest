@@ -1,8 +1,32 @@
-/* Google Fonts - must be first */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+/* Google Fonts loaded via HTML head with preconnect for better performance */
+/* Font-face fallbacks with font-display: swap for system fonts during load */
+@font-face {
+  font-family: 'Outfit';
+  font-display: swap;
+  src: local('Outfit');
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  font-display: swap;
+  src: local('Orbitron');
+}
 
 @import "tailwindcss";
+
+/* FontAwesome loaded with font-display: swap override */
 @import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/* Font-display: swap override for FontAwesome to prevent invisible text */
+@font-face {
+  font-family: 'Font Awesome 6 Free';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Font Awesome 6 Brands';
+  font-display: swap;
+}
 
 /* Custom Color Palette */
 @theme {

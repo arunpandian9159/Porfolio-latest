@@ -152,15 +152,30 @@ const Hero = () => {
             
             {/* Avatar */}
             <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden relative">
-              <img 
-                src={profile.profileImage} 
-                alt={profile.name}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
-                }}
-              />
+              <picture>
+                {/* Optimized WebP images with responsive sizes */}
+                <source 
+                  type="image/webp"
+                  srcSet="/profile-256.webp 256w, /profile-512.webp 512w"
+                  sizes="(max-width: 768px) 224px, 256px"
+                />
+                {/* Fallback to original JPG */}
+                <img 
+                  src={profile.profileImage}
+                  alt={profile.name}
+                  className="w-full h-full object-cover"
+                  width={256}
+                  height={256}
+                  loading="eager"
+                  decoding="async"
+                  fetchpriority="high"
+                  onError={(e) => {
+                    // Hide picture element if images fail
+                    e.target.parentElement.style.display = 'none';
+                    e.target.parentElement.nextSibling.style.display = 'flex';
+                  }}
+                />
+              </picture>
               <div className="w-full h-full bg-linear-to-br from-cerulean to-oxford-navy-light items-center justify-center hidden">
                 <span className="font-display text-6xl md:text-7xl font-black text-honeydew text-glow-blue">AC</span>
               </div>
