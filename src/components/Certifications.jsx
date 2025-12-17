@@ -1,40 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useState, useCallback } from 'react';
 import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const CertCard = ({ cert, index, onImageClick }) => {
-  const cardRef = useRef(null);
+const CertCard = memo(({ cert, index, onImageClick }) => {
+  const animationConfig = {
+    opacity: [0, 1],
+    rotateY: [45, 0],
+    duration: 400,
+    delay: index * 50,
+    easing: 'easeOutExpo'
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(cardRef.current, {
-                opacity: [0, 1],
-                rotateY: [45, 0],
-                duration: 400,
-                delay: index * 50,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+  const cardRef = useIntersectionAnimate(animationConfig);
+
+  const handleClick = useCallback(() => {
+    if (cert.image) {
+      onImageClick(cert.image, cert.title);
+    }
+  }, [cert.image, cert.title, onImageClick]);
 
   return (
     <div 
       ref={cardRef} 
       className="cert-card opacity-0 bg-linear-to-br from-oxford-navy/80 to-cerulean/20 border border-frosted-blue/20 rounded-2xl p-4 text-center transition-all hover:border-punch-red hover:-translate-y-1 relative overflow-hidden cursor-pointer group"
-      onClick={() => cert.image && onImageClick(cert.image, cert.title)}
+      onClick={handleClick}
     >
       {cert.image ? (
         <div className="aspect-4/3 rounded-lg overflow-hidden mb-3">
@@ -42,6 +33,7 @@ const CertCard = ({ cert, index, onImageClick }) => {
             src={cert.image} 
             alt={cert.title}
             className="w-full h-full object-cover transition-transform group-hover:scale-105"
+            loading="lazy"
           />
         </div>
       ) : (
@@ -58,45 +50,40 @@ const CertCard = ({ cert, index, onImageClick }) => {
       <div className="cert-shine"></div>
     </div>
   );
-};
+});
 
-const AchievementItem = ({ item, index, onImageClick }) => {
-  const itemRef = useRef(null);
+CertCard.displayName = 'CertCard';
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(itemRef.current, {
-                opacity: [0, 1],
-                translateX: [-30, 0],
-                duration: 300,
-                delay: index * 50,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (itemRef.current) observer.observe(itemRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+const AchievementItem = memo(({ item, index, onImageClick }) => {
+  const animationConfig = {
+    opacity: [0, 1],
+    translateX: [-30, 0],
+    duration: 300,
+    delay: index * 50,
+    easing: 'easeOutExpo'
+  };
+
+  const itemRef = useIntersectionAnimate(animationConfig);
+
+  const handleClick = useCallback(() => {
+    if (item.image) {
+      onImageClick(item.image, item.text);
+    }
+  }, [item.image, item.text, onImageClick]);
+
+  const handleLinkClick = useCallback((e) => {
+    e.stopPropagation();
+  }, []);
 
   return (
     <div 
       ref={itemRef} 
       className={`opacity-0 flex items-center gap-4 bg-oxford-navy/50 border border-frosted-blue/15 rounded-xl p-5 transition-all hover:border-punch-red hover:translate-x-1 ${item.image ? 'cursor-pointer' : ''}`}
-      onClick={() => item.image && onImageClick(item.image, item.text)}
+      onClick={handleClick}
     >
       {item.image ? (
         <div className="w-16 h-12 rounded-lg overflow-hidden shrink-0">
-          <img src={item.image} alt={item.text} className="w-full h-full object-cover" />
+          <img src={item.image} alt={item.text} className="w-full h-full object-cover" loading="lazy" />
         </div>
       ) : (
         <div className="w-11 h-11 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center shrink-0">
@@ -115,16 +102,18 @@ const AchievementItem = ({ item, index, onImageClick }) => {
           target="_blank" 
           rel="noopener noreferrer"
           className="text-punch-red hover:text-punch-red-light transition-colors"
-          onClick={(e) => e.stopPropagation()}
+          onClick={handleLinkClick}
         >
           <i className="fas fa-file-pdf text-xl"></i>
         </a>
       )}
     </div>
   );
-};
+});
 
-const ImageModal = ({ image, title, onClose }) => {
+AchievementItem.displayName = 'AchievementItem';
+
+const ImageModal = memo(({ image, title, onClose }) => {
   if (!image) return null;
   
   return (
@@ -146,59 +135,47 @@ const ImageModal = ({ image, title, onClose }) => {
       </div>
     </div>
   );
-};
+});
+
+ImageModal.displayName = 'ImageModal';
 
 const Certifications = () => {
-  const sectionRef = useRef(null);
   const [modalImage, setModalImage] = useState(null);
   const [modalTitle, setModalTitle] = useState('');
 
-  const handleImageClick = (image, title) => {
+  const handleImageClick = useCallback((image, title) => {
     setModalImage(image);
     setModalTitle(title);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalImage(null);
     setModalTitle('');
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.cert-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.cert-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.cert-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
   }, []);
+
+  const runHeaderAnimation = useCallback(() => {
+    animate('.cert-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.cert-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.cert-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
+  }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { certifications, achievements } = profileData;
 
@@ -207,15 +184,12 @@ const Certifications = () => {
       <section id="certifications" ref={sectionRef} className="py-24 bg-oxford-navy-dark">
         <div className="max-w-6xl mx-auto px-5">
           {/* Header */}
-          <div className="cert-header text-center mb-16">
-            <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-              Credentials
-            </span>
-            <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-              Certifications & <span className="text-punch-red">Achievements</span>
-            </h2>
-            <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-          </div>
+          <SectionHeader
+            tag="Credentials"
+            title="Certifications &"
+            highlight="Achievements"
+            className="cert-header"
+          />
 
           {/* Certifications Grid */}
           <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mb-16">

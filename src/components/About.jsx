@@ -1,37 +1,12 @@
-import { useEffect, useRef } from 'react';
-import { animate, stagger } from 'animejs';
+import { memo, useCallback } from 'react';
+import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
-import { useCountUp } from '../hooks/useAnime';
+import { useCountUp, useCardReveal, useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const StatCard = ({ icon, value, label, delay }) => {
+const StatCard = memo(({ icon, value, label, index }) => {
   const countRef = useCountUp(value);
-  const cardRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              setTimeout(() => {
-                animate(cardRef.current, {
-                  opacity: [0, 1],
-                  translateY: [20, 0],
-                  duration: 300,
-                  easing: 'easeOutExpo'
-                });
-              }, delay);
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [delay]);
+  const cardRef = useCardReveal(index, { translateY: [20, 0] });
 
   return (
     <div ref={cardRef} className="opacity-0 bg-linear-to-br from-oxford-navy/80 to-cerulean/30 border border-frosted-blue/20 rounded-2xl p-6 text-center transition-all hover:-translate-y-1 hover:border-punch-red hover:glow-red">
@@ -44,54 +19,41 @@ const StatCard = ({ icon, value, label, delay }) => {
       <div className="text-frosted-blue/80 text-sm uppercase tracking-wider mt-1">{label}</div>
     </div>
   );
-};
+});
+
+StatCard.displayName = 'StatCard';
 
 const About = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.about-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.about-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.about-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-              animate('.about-card', {
-                opacity: [0, 1],
-                translateX: [-30, 0],
-                duration: 400,
-                delay: 300,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.about-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.about-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.about-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
+    animate('.about-card', {
+      opacity: [0, 1],
+      translateX: [-30, 0],
+      duration: 400,
+      delay: 300,
+      easing: 'easeOutExpo'
+    });
   }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { profile, stats } = profileData;
 
@@ -105,15 +67,12 @@ const About = () => {
 
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="about-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Introduction
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            About <span className="text-punch-red">Me</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Introduction"
+          title="About"
+          highlight="Me"
+          className="about-header"
+        />
 
         {/* Content */}
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 items-start">
@@ -148,10 +107,10 @@ const About = () => {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-5">
-            <StatCard icon="fas fa-project-diagram" value={stats.projects} label="Projects" delay={0} />
-            <StatCard icon="fas fa-code" value={stats.technologies} label="Technologies" delay={100} />
-            <StatCard icon="fas fa-briefcase" value={stats.internships} label="Internships" delay={200} />
-            <StatCard icon="fas fa-award" value={stats.certifications} label="Certifications" delay={300} />
+            <StatCard icon="fas fa-project-diagram" value={stats.projects} label="Projects" index={0} />
+            <StatCard icon="fas fa-code" value={stats.technologies} label="Technologies" index={1} />
+            <StatCard icon="fas fa-briefcase" value={stats.internships} label="Internships" index={2} />
+            <StatCard icon="fas fa-award" value={stats.certifications} label="Certifications" index={3} />
           </div>
         </div>
       </div>

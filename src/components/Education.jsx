@@ -1,35 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { memo, useCallback } from 'react';
 import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const EducationCard = ({ edu, index }) => {
-  const cardRef = useRef(null);
+const EducationCard = memo(({ edu, index }) => {
+  const animationConfig = {
+    opacity: [0, 1],
+    translateY: [30, 0],
+    scale: [0.95, 1],
+    duration: 350,
+    delay: index * 75,
+    easing: 'easeOutExpo'
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(cardRef.current, {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                scale: [0.95, 1],
-                duration: 350,
-                delay: index * 75,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+  const cardRef = useIntersectionAnimate(animationConfig, { threshold: 0.2 });
 
   return (
     <div ref={cardRef} className={`opacity-0 ${edu.isMain ? 'bg-linear-to-br from-punch-red/10 to-oxford-navy/50 border-punch-red' : 'bg-oxford-navy-dark/50 border-frosted-blue/15'} border rounded-2xl p-7 text-center transition-all hover:-translate-y-1 hover:border-punch-red`}>
@@ -45,47 +30,34 @@ const EducationCard = ({ edu, index }) => {
       <span className="inline-block px-5 py-2 bg-punch-red text-honeydew rounded-full font-semibold">{edu.grade}</span>
     </div>
   );
-};
+});
+
+EducationCard.displayName = 'EducationCard';
 
 const Education = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.edu-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.edu-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.edu-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.edu-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.edu-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.edu-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
   }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { education } = profileData;
 
@@ -95,15 +67,12 @@ const Education = () => {
       
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="edu-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Academics
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            Education <span className="text-punch-red">Journey</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Academics"
+          title="Education"
+          highlight="Journey"
+          className="edu-header"
+        />
 
         {/* Cards */}
         <div className="grid md:grid-cols-3 gap-6">

@@ -1,34 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { memo, useCallback } from 'react';
 import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
-const TimelineItem = ({ exp, index }) => {
-  const itemRef = useRef(null);
+const TimelineItem = memo(({ exp, index }) => {
+  const animationConfig = {
+    opacity: [0, 1],
+    translateX: [-30, 0],
+    duration: 400,
+    delay: index * 100,
+    easing: 'easeOutExpo'
+  };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate(itemRef.current, {
-                opacity: [0, 1],
-                translateX: [-30, 0],
-                duration: 400,
-                delay: index * 100,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (itemRef.current) observer.observe(itemRef.current);
-    return () => observer.disconnect();
-  }, [index]);
+  const itemRef = useIntersectionAnimate(animationConfig);
 
   return (
     <div ref={itemRef} className="relative pl-10 pb-10 opacity-0">
@@ -54,47 +39,34 @@ const TimelineItem = ({ exp, index }) => {
       </div>
     </div>
   );
-};
+});
+
+TimelineItem.displayName = 'TimelineItem';
 
 const Experience = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.exp-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.exp-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.exp-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.exp-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.exp-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.exp-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
   }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { experience } = profileData;
 
@@ -104,15 +76,12 @@ const Experience = () => {
       
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="exp-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Journey
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            Work <span className="text-punch-red">Experience</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Journey"
+          title="Work"
+          highlight="Experience"
+          className="exp-header"
+        />
 
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto pl-8">

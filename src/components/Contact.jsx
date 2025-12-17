@@ -1,60 +1,47 @@
-import { useEffect, useRef } from 'react';
+import { memo, useCallback } from 'react';
 import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
+import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
+import SectionHeader from './SectionHeader';
 
 const Contact = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Use requestAnimationFrame for smoother animation start
-            requestAnimationFrame(() => {
-              animate('.contact-header .section-tag', {
-                opacity: [0, 1],
-                translateY: [-20, 0],
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.contact-header .section-title', {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                duration: 400,
-                delay: 100,
-                easing: 'easeOutExpo'
-              });
-              animate('.contact-header .title-decoration', {
-                width: [0, 80],
-                duration: 300,
-                delay: 200,
-                easing: 'easeOutExpo'
-              });
-              animate('.contact-method-item', {
-                opacity: [0, 1],
-                translateX: [-30, 0],
-                delay: stagger(50, { start: 300 }),
-                duration: 300,
-                easing: 'easeOutExpo'
-              });
-              animate('.social-connect-box', {
-                opacity: [0, 1],
-                scale: [0.9, 1],
-                duration: 400,
-                delay: 400,
-                easing: 'easeOutExpo'
-              });
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+  const runHeaderAnimation = useCallback(() => {
+    animate('.contact-header .section-tag', {
+      opacity: [0, 1],
+      translateY: [-20, 0],
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.contact-header .section-title', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
+      delay: 100,
+      easing: 'easeOutExpo'
+    });
+    animate('.contact-header .title-decoration', {
+      width: [0, 80],
+      duration: 300,
+      delay: 200,
+      easing: 'easeOutExpo'
+    });
+    animate('.contact-method-item', {
+      opacity: [0, 1],
+      translateX: [-30, 0],
+      delay: stagger(50, { start: 300 }),
+      duration: 300,
+      easing: 'easeOutExpo'
+    });
+    animate('.social-connect-box', {
+      opacity: [0, 1],
+      scale: [0.9, 1],
+      duration: 400,
+      delay: 400,
+      easing: 'easeOutExpo'
+    });
   }, []);
+
+  const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
   const { profile, socials } = profileData;
 
@@ -64,15 +51,12 @@ const Contact = () => {
       
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
-        <div className="contact-header text-center mb-16">
-          <span className="section-tag inline-block px-5 py-2 bg-punch-red/15 rounded-full text-punch-red text-sm font-semibold uppercase tracking-wider mb-4 opacity-0">
-            Get In Touch
-          </span>
-          <h2 className="section-title font-display text-4xl md:text-5xl font-bold mb-4 opacity-0">
-            Let's <span className="text-punch-red">Connect</span>
-          </h2>
-          <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
-        </div>
+        <SectionHeader
+          tag="Get In Touch"
+          title="Let's"
+          highlight="Connect"
+          className="contact-header"
+        />
 
         {/* Content */}
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-16 items-center">
