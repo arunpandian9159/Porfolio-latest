@@ -22,7 +22,7 @@ function App() {
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
       <div className={isLoading ? 'opacity-0' : 'opacity-100 transition-opacity duration-500'}>
         <Navbar />
-        <Hero />
+        <Hero isLoading={isLoading} />
         <About />
         <Skills />
         <TechLogoLoop />
@@ -38,3 +38,4 @@ function App() {
 }
 
 export default App;
+

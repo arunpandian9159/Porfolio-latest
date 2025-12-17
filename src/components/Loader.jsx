@@ -29,67 +29,49 @@ const Loader = ({ onComplete }) => {
 
     // Use requestAnimationFrame to batch animations and avoid forced reflows
     requestAnimationFrame(() => {
-      // Step 1: Animate letters with bounce effect (0ms - 800ms)
+      // Total animation: 1 second (1000ms)
+      
+      // Step 1: Animate letters with quick bounce effect (0ms - 300ms)
       animate(letterElements, {
         opacity: [0, 1],
-        translateY: [50, 0],
-        scale: [0.5, 1.1, 1],
-        rotate: [-15, 0],
-        delay: stagger(120),
-        duration: 600,
-        easing: 'easeOutElastic(1, .6)'
+        translateY: [30, 0],
+        scale: [0.7, 1.05, 1],
+        delay: stagger(50),
+        duration: 250,
+        easing: 'easeOutQuart'
       });
 
-      // Step 2: Glow pulse on letters (starts at 800ms)
-      setTimeout(() => {
-        animate(letterElements, {
-          textShadow: [
-            '0 0 20px rgba(230, 57, 70, 0.5)',
-            '0 0 60px rgba(230, 57, 70, 1)',
-            '0 0 20px rgba(230, 57, 70, 0.5)'
-          ],
-          duration: 800,
-          easing: 'easeInOutSine'
-        });
-      }, 800);
+      // Step 2: Animate progress bar (0ms - 700ms)
+      animate(progress, {
+        width: '100%',
+        duration: 700,
+        easing: 'easeInOutQuart'
+      });
 
-      // Step 3: Animate progress bar (starts at 300ms, runs for 1500ms)
-      setTimeout(() => {
-        animate(progress, {
-          width: '100%',
-          duration: 1500,
-          easing: 'easeInOutQuart'
-        });
-      }, 300);
-
-      // Step 4: Exit animation - letters fly out (at 2200ms)
+      // Step 3: Exit animation - fade out letters and loader (starts at 700ms)
       setTimeout(() => {
         animate(letterElements, {
           opacity: [1, 0],
-          translateY: [0, -50],
-          scale: [1, 1.5],
-          delay: stagger(60, { from: 'center' }),
-          duration: 400,
-          easing: 'easeOutExpo'
+          translateY: [0, -20],
+          delay: stagger(30, { from: 'center' }),
+          duration: 200,
+          easing: 'easeOutQuart'
         });
-      }, 2200);
 
-      // Step 5: Fade out loader (at 2400ms)
-      setTimeout(() => {
         if (loaderRef.current) {
           animate(loaderRef.current, {
             opacity: [1, 0],
-            duration: 500,
+            duration: 300,
             easing: 'easeOutQuart'
           });
         }
-      }, 2400);
+      }, 700);
 
-      // Step 6: Hide and callback (at 3000ms = 3 seconds total)
+      // Step 4: Hide and callback (at 1000ms = 1 second total)
       setTimeout(() => {
         setIsHidden(true);
         onComplete?.();
-      }, 3000);
+      }, 1000);
     });
   }, [onComplete]);
 
@@ -119,4 +101,5 @@ const Loader = ({ onComplete }) => {
 };
 
 export default Loader;
+
 

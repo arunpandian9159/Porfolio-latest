@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { animate, stagger } from 'animejs';
 import { profileData } from '../data/profileData';
 
@@ -21,9 +21,15 @@ const PARTICLES = [
   { size: 3, color: 'red', left: 65, top: 55, duration: 6.2, delay: 0.4, moveX: 55, moveY: -35 },
 ];
 
-const Hero = () => {
+const Hero = ({ isLoading }) => {
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
+    // Only run animations when loading is complete and hasn't run yet
+    if (isLoading || hasAnimated.current) return;
+    
+    hasAnimated.current = true;
+
     // Hero animation timeline - smooth sequential animations
     const runAnimations = async () => {
       // Profile frame enters with spring effect
@@ -31,15 +37,15 @@ const Hero = () => {
         opacity: [0, 1],
         scale: [0.7, 1.02, 1],
         rotate: [-5, 0],
-        duration: 1200,
-        easing: 'easeOutElastic(1, .8)'
+        duration: 800,
+        easing: 'easeOutQuart'
       }).finished;
 
       // Frame border pulses in
       animate('.frame-border-anim', {
         opacity: [0, 1],
         scale: [1.3, 1],
-        duration: 800,
+        duration: 500,
         easing: 'easeOutQuart'
       });
 
@@ -47,8 +53,8 @@ const Hero = () => {
       animate('.quick-stat', {
         opacity: [0, 1],
         translateY: [30, 0],
-        delay: stagger(150),
-        duration: 800,
+        delay: stagger(100),
+        duration: 500,
         easing: 'easeOutQuart'
       });
 
@@ -56,7 +62,7 @@ const Hero = () => {
       animate('.hero-intro', {
         opacity: [0, 1],
         translateX: [-50, 0],
-        duration: 800,
+        duration: 500,
         easing: 'easeOutQuart'
       });
 
@@ -65,7 +71,7 @@ const Hero = () => {
         opacity: [0, 1],
         translateX: [-60, 0],
         translateY: [20, 0],
-        duration: 1000,
+        duration: 600,
         easing: 'easeOutQuart'
       }).finished;
 
@@ -73,14 +79,14 @@ const Hero = () => {
       animate('.hero-role', {
         opacity: [0, 1],
         translateX: [-30, 0],
-        duration: 700,
+        duration: 400,
         easing: 'easeOutQuart'
       });
 
       // Underline draws with smooth ease
       animate('.role-underline', {
         width: [0, 200],
-        duration: 800,
+        duration: 500,
         easing: 'easeOutQuart'
       });
 
@@ -88,25 +94,25 @@ const Hero = () => {
       animate('.hero-bio', {
         opacity: [0, 1],
         translateY: [30, 0],
-        duration: 800,
-        delay: 100,
+        duration: 500,
+        delay: 50,
         easing: 'easeOutQuart'
       });
 
       animate('.hero-cta', {
         opacity: [0, 1],
         translateY: [30, 0],
-        duration: 800,
-        delay: 200,
+        duration: 500,
+        delay: 100,
         easing: 'easeOutQuart'
       });
     };
 
-    // Small delay to ensure DOM is ready after loader
-    setTimeout(() => {
+    // Small delay to ensure DOM transition is complete
+    requestAnimationFrame(() => {
       runAnimations();
-    }, 100);
-  }, []);
+    });
+  }, [isLoading]);
 
 
   const { profile, socials, stats } = profileData;
