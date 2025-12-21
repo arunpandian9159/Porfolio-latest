@@ -205,7 +205,7 @@ const Hero = ({ isLoading }) => {
               <i className="fas fa-certificate"></i>
               <span>{stats.certifications}+ Certifications</span>
             </div>
-          </div>
+          </div> 
         </div>
 
         {/* Right - Info */}
