@@ -80,7 +80,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" ref={sectionRef} className="py-16 md:py-24 bg-oxford-navy">
+    <section id="skills" ref={sectionRef} className="py-16 md:py-24 md:pb-0 bg-oxford-navy">
       <div className="max-w-6xl mx-auto px-5">
         {/* Header */}
         <SectionHeader
