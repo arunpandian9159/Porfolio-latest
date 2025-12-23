@@ -3,6 +3,7 @@ import { animate } from 'animejs';
 import { profileData } from '../data/profileData';
 import { useCountUp, useCardReveal, useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
 import SectionHeader from './SectionHeader';
+import CurvedLoop from './CurvedLoop';
  
 const StatCard = memo(({ icon, value, label, index }) => {
   const countRef = useCountUp(value);
@@ -66,6 +67,14 @@ const About = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-5">
+        {/* Curved Loop Animation */}
+        <CurvedLoop
+          marqueeText="Arun ✦ Pandian ✦ Full ✦ Stack ✦ Developer ✦ "
+          curveAmount={0}
+          interactive={false}
+          speed={2}
+        />
+
         {/* Header */}
         <SectionHeader
           tag="Introduction"
