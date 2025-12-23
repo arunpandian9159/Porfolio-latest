@@ -22,24 +22,22 @@ const TechLogoLoop = () => {
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-radial from-punch-red/5 via-transparent to-transparent"></div>
       
-      <div className="max-w-6xl mx-auto px-5">
-        <div className="text-center mb-8">
-          <span className="text-frosted-blue/60 text-sm uppercase tracking-widest">Technologies I Work With</span>
-        </div>
-        
-        <LogoLoop
-          logos={techLogos}
-          speed={80}
-          direction="left"
-          logoHeight={52}
-          gap={48}
-          hoverSpeed={40}
-          fadeOut={true}
-          fadeOutColor="#1d3557"
-          scaleOnHover={true}
-          className="tech-logo-loop"
-        />
+      <div className="text-center mb-8">
+        <span className="text-frosted-blue/60 text-sm uppercase tracking-widest">Technologies I Work With</span>
       </div>
+      
+      <LogoLoop
+        logos={techLogos}
+        speed={80}
+        direction="left"
+        logoHeight={52}
+        gap={48}
+        hoverSpeed={40}
+        fadeOut={true}
+        fadeOutColor="#1d3557"
+        scaleOnHover={true}
+        className="tech-logo-loop"
+      />
     </section>
   );
 };
