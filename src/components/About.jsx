@@ -75,7 +75,7 @@ const About = () => {
         />
 
         {/* Content */}
-        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10 items-start">
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10">
           {/* Card */}
           <div className="about-card bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl p-6 md:p-8 relative overflow-hidden opacity-0">
             <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-radial from-punch-red/10 to-transparent pointer-events-none"></div>
@@ -106,7 +106,7 @@ const About = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-5 h-full">
             <StatCard icon="fas fa-project-diagram" value={stats.projects} label="Projects" index={0} />
             <StatCard icon="fas fa-code" value={stats.technologies} label="Technologies" index={1} />
             <StatCard icon="fas fa-briefcase" value={stats.internships} label="Internships" index={2} />
