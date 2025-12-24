@@ -78,7 +78,7 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
 
     const animate = timestamp => {
       if (lastTimestampRef.current === null) {
-        lastTimestampRef.current = timestamp;
+        lastTimestampRef.current = timestamp; 
       }
 
       const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
