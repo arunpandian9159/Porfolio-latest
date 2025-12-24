@@ -150,12 +150,12 @@
     background: linear-gradient(to bottom,
             var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
             rgba(0, 0, 0, 0) 100%);
-}
+} 
 
 .logoloop--vertical.logoloop--fade::after {
     bottom: 0;
     top: auto;
-    background: linear-gradient(to top,
+    background: linear-gradient(to top, 
             var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
             rgba(0, 0, 0, 0) 100%);
 }
