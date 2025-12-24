@@ -7,7 +7,7 @@ import SectionHeader from './ui/SectionHeader';
 const EducationCard = memo(({ edu, index }) => {
   const animationConfig = {
     opacity: [0, 1],
-    translateY: [30, 0],
+    translateY: [30, 0], 
     scale: [0.95, 1],
     duration: 350,
     delay: index * 75,
