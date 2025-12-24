@@ -4,14 +4,14 @@ import { profileData } from '../data/profileData';
 import { useIntersectionAnimate } from '../hooks/useIntersectionAnimate';
 import SectionHeader from './ui/SectionHeader';
 import ScrollStack from './ui/ScrollStack';
-
+ 
 const ProjectCardContent = memo(({ project, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (project.images && project.images.length > 1) {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
+        setCurrentImageIndex((prev) => (prev + 1) % project.images.length); 
       }, 3000);
       return () => clearInterval(interval);
     }
