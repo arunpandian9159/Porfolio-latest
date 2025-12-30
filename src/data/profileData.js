@@ -113,6 +113,7 @@ export const profileData = {
         "Architected a scalable, gas-efficient ecosystem enabling secure, verifiable transactions for artists and collectors within the digital art marketplace."
       ],
       tech: ["Solidity", "Web3", "Polygon", "JavaScript", "Smart Contracts"],
+      liveLink: "https://arun-nft.vercel.app",
       repoLink: "https://github.com/arunpandian9159/NFT-PROJECT",
       ieeeLink: "https://ieeexplore.ieee.org/document/11031552",
       teamSize: 3,
