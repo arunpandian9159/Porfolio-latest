@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const Card = ({ children, index, progress, range, targetScale }) => {
   const scale = useTransform(progress, range, [1, targetScale]); 
   
-  return (
+  return ( 
     <div className="sticky top-0 h-screen flex items-center justify-center">
       <motion.div 
         style={{ scale, top: `calc(-5vh + ${index * 25}px)` }} 
