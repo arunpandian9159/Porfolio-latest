@@ -8,7 +8,7 @@ const Footer = () => {
         </p>
         <p className="text-frosted-blue/50 text-sm">© 2025 All Rights Reserved</p>
       </div>
-    </footer>
+    </footer> 
   );
 }; 
  
