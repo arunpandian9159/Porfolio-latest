@@ -184,7 +184,7 @@ const Certifications = () => {
       <section id="certifications" ref={sectionRef} className="py-24 bg-oxford-navy-dark">
         <div className="max-w-6xl mx-auto px-5">
           {/* Header */}
-          <SectionHeader
+          <SectionHeader 
             tag="Credentials"
             title="Certifications &" 
             highlight="Achievements"
