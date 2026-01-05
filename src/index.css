@@ -1,15 +1,15 @@
 /* Google Fonts loaded via HTML head with preconnect for better performance */
 /* Font-face fallbacks with font-display: swap for system fonts during load */
 @font-face {
-  font-family: 'Outfit';
+  font-family: "Outfit";
   font-display: swap;
-  src: local('Outfit');
+  src: local("Outfit");
 }
 
 @font-face {
-  font-family: 'Orbitron';
+  font-family: "Orbitron";
   font-display: swap;
-  src: local('Orbitron');
+  src: local("Orbitron");
 }
 
 @import "tailwindcss";
@@ -19,12 +19,12 @@
 
 /* Font-display: swap override for FontAwesome to prevent invisible text */
 @font-face {
-  font-family: 'Font Awesome 6 Free';
+  font-family: "Font Awesome 6 Free";
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Font Awesome 6 Brands';
+  font-family: "Font Awesome 6 Brands";
   font-display: swap;
 }
 
@@ -43,8 +43,8 @@
   --color-oxford-navy-light: #315a93;
   --color-oxford-navy-dark: #0c1623;
 
-  --font-family-main: 'Outfit', sans-serif;
-  --font-family-display: 'Orbitron', sans-serif;
+  --font-family-main: "Outfit", sans-serif;
+  --font-family-display: "Orbitron", sans-serif;
 }
 
 /* Base Styles */
@@ -75,10 +75,14 @@ body {
 
 /* Add subtle background effect to loader */
 .loader::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(230, 57, 70, 0.1) 0%, transparent 60%);
+  background: radial-gradient(
+    circle at center,
+    rgba(230, 57, 70, 0.1) 0%,
+    transparent 60%
+  );
   pointer-events: none;
 }
 
@@ -87,7 +91,9 @@ body {
   font-size: clamp(3rem, 10vw, 5rem);
   font-weight: 900;
   color: var(--color-punch-red);
-  text-shadow: 0 0 30px rgba(230, 57, 70, 0.6), 0 0 60px rgba(230, 57, 70, 0.3);
+  text-shadow:
+    0 0 30px rgba(230, 57, 70, 0.6),
+    0 0 60px rgba(230, 57, 70, 0.3);
   opacity: 0;
   display: inline-block;
 }
@@ -95,7 +101,12 @@ body {
 .loader-progress {
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--color-punch-red), var(--color-frosted-blue), var(--color-punch-red));
+  background: linear-gradient(
+    90deg,
+    var(--color-punch-red),
+    var(--color-frosted-blue),
+    var(--color-punch-red)
+  );
   background-size: 200% 100%;
   border-radius: 4px;
   animation: shimmer 1.5s infinite linear;
@@ -115,12 +126,12 @@ body {
 .opacity-0,
 [class*="translate"],
 .about-card,
-.stat-card, 
+.stat-card,
 .section-tag,
 .section-title,
 .title-decoration,
 .skill-tag,
-.profile-frame, 
+.profile-frame,
 .quick-stat,
 .hero-intro,
 .hero-name,
@@ -162,14 +173,18 @@ section {
   position: absolute;
   width: 200%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-punch-red), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-punch-red),
+    transparent
+  );
   animation: speedLine 3s infinite;
   opacity: 0.3;
 }
 
 /* Avatar Aura Animation */
 @keyframes auraPulse {
-
   0%,
   100% {
     opacity: 0.5;
@@ -188,7 +203,6 @@ section {
 
 /* Frame Pulse Animation */
 @keyframes framePulse {
-
   0%,
   100% {
     opacity: 1;
@@ -229,7 +243,12 @@ section {
   left: -100%;
   width: 50%;
   height: 200%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
   transform: rotate(25deg);
   transition: 0.5s;
 }
@@ -269,7 +288,8 @@ section {
   border-radius: 50%;
   pointer-events: none;
   will-change: transform, opacity;
-  animation: particleFloat var(--duration, 6s) var(--delay, 0s) infinite ease-in-out;
+  animation: particleFloat var(--duration, 6s) var(--delay, 0s) infinite
+    ease-in-out;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
@@ -283,7 +303,6 @@ section {
 }
 
 @keyframes particleFloat {
-
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(0.5);
@@ -291,17 +310,28 @@ section {
   }
 
   25% {
-    transform: translate3d(var(--move-x, 50px), var(--move-y, -30px), 0) scale(1);
+    transform: translate3d(var(--move-x, 50px), var(--move-y, -30px), 0)
+      scale(1);
     opacity: 0.6;
   }
 
   50% {
-    transform: translate3d(calc(var(--move-x, 50px) * 1.5), calc(var(--move-y, -30px) * 0.5), 0) scale(1.2);
+    transform: translate3d(
+        calc(var(--move-x, 50px) * 1.5),
+        calc(var(--move-y, -30px) * 0.5),
+        0
+      )
+      scale(1.2);
     opacity: 0.4;
   }
 
   75% {
-    transform: translate3d(calc(var(--move-x, 50px) * 0.5), calc(var(--move-y, -30px) * 1.2), 0) scale(0.8);
+    transform: translate3d(
+        calc(var(--move-x, 50px) * 0.5),
+        calc(var(--move-y, -30px) * 1.2),
+        0
+      )
+      scale(0.8);
     opacity: 0.5;
   }
 }
