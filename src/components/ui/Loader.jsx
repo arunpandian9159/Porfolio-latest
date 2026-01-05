@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-import { animate, stagger } from 'animejs';
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { animate, stagger } from "animejs";
 
-const LOADER_NAME = 'ARUN';
+const LOADER_NAME = "ARUN";
 
 const Loader = ({ onComplete }) => {
   const loaderRef = useRef(null);
@@ -11,12 +11,15 @@ const Loader = ({ onComplete }) => {
   const hasRun = useRef(false);
 
   // Memoize letters array to avoid recreating on each render
-  const letters = useMemo(() => LOADER_NAME.split(''), []);
+  const letters = useMemo(() => LOADER_NAME.split(""), []);
 
   // Store refs for letters
-  const setLetterRef = useCallback((index) => (el) => {
-    letterRefs.current[index] = el;
-  }, []);
+  const setLetterRef = useCallback(
+    (index) => (el) => {
+      letterRefs.current[index] = el;
+    },
+    [],
+  );
 
   useEffect(() => {
     if (hasRun.current) return;
@@ -30,7 +33,7 @@ const Loader = ({ onComplete }) => {
     // Use requestAnimationFrame to batch animations and avoid forced reflows
     requestAnimationFrame(() => {
       // Total animation: 1 second (1000ms)
-      
+
       // Step 1: Animate letters with quick bounce effect (0ms - 300ms)
       animate(letterElements, {
         opacity: [0, 1],
@@ -38,14 +41,14 @@ const Loader = ({ onComplete }) => {
         scale: [0.7, 1.05, 1],
         delay: stagger(50),
         duration: 250,
-        easing: 'easeOutQuart'
+        easing: "easeOutQuart",
       });
 
-      // Step 2: Animate progress bar (0ms - 700ms)  
+      // Step 2: Animate progress bar (0ms - 700ms)
       animate(progress, {
-        width: '100%',
+        width: "100%",
         duration: 800,
-        easing: 'easeInOutQuart'
+        easing: "easeInOutQuart",
       });
 
       // Step 3: Exit animation - fade out letters and loader (starts at 700ms)
@@ -53,16 +56,16 @@ const Loader = ({ onComplete }) => {
         animate(letterElements, {
           opacity: [1, 0],
           translateY: [0, -20],
-          delay: stagger(30, { from: 'center' }),
+          delay: stagger(30, { from: "center" }),
           duration: 300,
-          easing: 'easeOutQuart'
+          easing: "easeOutQuart",
         });
 
         if (loaderRef.current) {
           animate(loaderRef.current, {
             opacity: [1, 0],
             duration: 300,
-            easing: 'easeOutQuart'
+            easing: "easeOutQuart",
           });
         }
       }, 700);
@@ -82,11 +85,7 @@ const Loader = ({ onComplete }) => {
       <div className="text-center relative z-10">
         <div className="flex gap-3 justify-center mb-10">
           {letters.map((letter, i) => (
-            <span 
-              key={i} 
-              ref={setLetterRef(i)} 
-              className="loader-letter"
-            >
+            <span key={i} ref={setLetterRef(i)} className="loader-letter">
               {letter}
             </span>
           ))}
@@ -94,12 +93,12 @@ const Loader = ({ onComplete }) => {
         <div className="w-64 h-2 bg-oxford-navy/50 rounded-full overflow-hidden mx-auto border border-frosted-blue/20">
           <div ref={progressRef} className="loader-progress h-full"></div>
         </div>
-        <p className="text-frosted-blue/60 text-sm mt-5 tracking-widest uppercase">Loading Portfolio...</p>
+        <p className="text-frosted-blue/60 text-sm mt-5 tracking-widest uppercase">
+          Loading Portfolio...
+        </p>
       </div>
     </div>
   );
 };
 
 export default Loader;
-
-
