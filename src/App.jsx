@@ -1,5 +1,7 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useCallback } from "react";
 import { Loader, Navbar, Hero } from "./components/ui";
+import { Terminal } from "./components/ui/Terminal";
+import { useKeyboardNavigation } from "./hooks/useKeyboardNavigation";
 
 // Lazy load below-the-fold components
 const About = lazy(() => import("./components/About"));
@@ -14,6 +16,21 @@ const TechLogoLoop = lazy(() => import("./components/ui/TechLogoLoop"));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+
+  const handleTerminalToggle = useCallback(() => {
+    setIsTerminalOpen((prev) => !prev);
+  }, []);
+
+  const handleTerminalClose = useCallback(() => {
+    setIsTerminalOpen(false);
+  }, []);
+
+  // Initialize keyboard navigation with terminal handlers
+  useKeyboardNavigation({
+    onTerminalToggle: handleTerminalToggle,
+    onEscape: handleTerminalClose,
+  });
 
   return (
     <>
@@ -25,7 +42,11 @@ function App() {
             : "opacity-100 transition-opacity duration-500"
         }
       >
-        <Navbar />
+        {/* Skip to main content link for keyboard/screen reader users */}
+        <a href="#about" className="skip-link">
+          Skip to main content
+        </a>
+        <Navbar onTerminalOpen={handleTerminalToggle} />
         <Hero isLoading={isLoading} />
 
         <Suspense fallback={<div className="min-h-[20vh]" />}>
@@ -40,6 +61,9 @@ function App() {
           <Footer />
         </Suspense>
       </div>
+
+      {/* Terminal Modal */}
+      <Terminal isOpen={isTerminalOpen} onClose={handleTerminalClose} />
     </>
   );
 }
