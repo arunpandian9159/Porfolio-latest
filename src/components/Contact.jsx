@@ -50,6 +50,7 @@ const Contact = () => {
       id="contact"
       ref={sectionRef}
       className="py-24 bg-oxford-navy relative"
+      aria-label="Contact information"
     >
       <div className="absolute inset-0 bg-gradient-radial from-punch-red/10 to-transparent opacity-50 -z-10"></div>
 
@@ -75,9 +76,10 @@ const Contact = () => {
               <a
                 href={`mailto:${profile.email}`}
                 className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl transition-all hover:border-punch-red hover:translate-x-2 opacity-0"
+                aria-label={`Send email to ${profile.email}`}
               >
                 <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
-                  <i className="fas fa-envelope"></i>
+                  <i className="fas fa-envelope" aria-hidden="true"></i>
                 </div>
                 <div>
                   <span className="text-frosted-blue/60 text-sm uppercase tracking-wider block">
@@ -90,9 +92,10 @@ const Contact = () => {
               <a
                 href={`tel:${profile.phone.replace(/\s/g, "")}`}
                 className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl transition-all hover:border-punch-red hover:translate-x-2 opacity-0"
+                aria-label={`Call ${profile.phone}`}
               >
                 <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
-                  <i className="fas fa-phone"></i>
+                  <i className="fas fa-phone" aria-hidden="true"></i>
                 </div>
                 <div>
                   <span className="text-frosted-blue/60 text-sm uppercase tracking-wider block">
@@ -102,9 +105,12 @@ const Contact = () => {
                 </div>
               </a>
 
-              <div className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl opacity-0">
+              <div 
+                className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl opacity-0"
+                aria-label={`Location: ${profile.location}`}
+              >
                 <div className="w-12 h-12 bg-linear-to-br from-punch-red to-cerulean rounded-xl flex items-center justify-center text-xl text-honeydew">
-                  <i className="fas fa-map-marker-alt"></i>
+                  <i className="fas fa-map-marker-alt" aria-hidden="true"></i>
                 </div>
                 <div>
                   <span className="text-frosted-blue/60 text-sm uppercase tracking-wider block">
@@ -121,14 +127,15 @@ const Contact = () => {
             <h3 className="font-display text-xl font-bold mb-6">
               Connect With Me
             </h3>
-            <div className="flex justify-center gap-5">
+            <div className="flex justify-center gap-5" role="group" aria-label="Social media links">
               <a
                 href={socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-3 px-8 py-5 bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl text-frosted-blue/80 transition-all hover:border-honeydew hover:text-honeydew hover:bg-white/10"
+                aria-label="Visit my GitHub profile (opens in new tab)"
               >
-                <i className="fab fa-github text-3xl"></i>
+                <i className="fab fa-github text-3xl" aria-hidden="true"></i>
                 <span>GitHub</span>
               </a>
               <a
@@ -136,8 +143,9 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-3 px-8 py-5 bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl text-frosted-blue/80 transition-all hover:border-[#0077b5] hover:text-[#0077b5] hover:bg-[#0077b5]/10"
+                aria-label="Visit my LinkedIn profile (opens in new tab)"
               >
-                <i className="fab fa-linkedin-in text-3xl"></i>
+                <i className="fab fa-linkedin-in text-3xl" aria-hidden="true"></i>
                 <span>LinkedIn</span>
               </a>
             </div>

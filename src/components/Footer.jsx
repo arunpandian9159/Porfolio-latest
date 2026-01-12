@@ -1,3 +1,5 @@
+import PerformanceBadge from "./ui/PerformanceBadge";
+
 const Footer = () => {
   return (
     <footer className="py-10 bg-oxford-navy-dark border-t border-frosted-blue/10">
@@ -9,9 +11,12 @@ const Footer = () => {
           Designed & Built by{" "}
           <span className="text-punch-red">Arunpandian C</span>
         </p>
-        <p className="text-frosted-blue/50 text-sm">
+        <p className="text-frosted-blue/50 text-sm mb-6">
           © 2025 All Rights Reserved
         </p>
+        <div className="pt-4 border-t border-frosted-blue/10">
+          <PerformanceBadge />
+        </div>
       </div>
     </footer>
   );

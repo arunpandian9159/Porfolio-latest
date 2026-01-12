@@ -7,6 +7,7 @@ import {
   useIntersectionAnimate,
 } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
+import GitHubActivity from "./ui/GitHubActivity";
 
 const StatCard = memo(({ icon, value, label, index }) => {
   const countRef = useCountUp(value);
@@ -60,11 +61,21 @@ const About = () => {
       delay: 300,
       easing: "easeOutExpo",
     });
+    animate(".github-activity-container", {
+      opacity: [0, 1],
+      translateY: [20, 0],
+      duration: 400,
+      delay: 400,
+      easing: "easeOutExpo",
+    });
   }, []);
 
   const sectionRef = useIntersectionAnimate(runHeaderAnimation);
 
-  const { profile, stats } = profileData;
+  const { profile, stats, socials } = profileData;
+  
+  // Extract GitHub username from URL
+  const githubUsername = socials?.github?.split('/').pop() || 'arunpandian9159';
 
   return (
     <section id="about" ref={sectionRef} className="py-16 md:py-24 relative">
@@ -147,6 +158,14 @@ const About = () => {
               index={3}
             />
           </div>
+        </div>
+
+        {/* GitHub Activity */}
+        <div className="mt-10">
+          <GitHubActivity 
+            username={githubUsername}
+            className="bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl p-6 opacity-0"
+          />
         </div>
       </div>
     </section>

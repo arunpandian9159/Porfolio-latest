@@ -4,26 +4,59 @@ import { profileData } from "../data/profileData";
 import { useIntersectionAnimate } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
 import ScrollStack from "./ui/ScrollStack";
+import VideoPreview from "./ui/VideoPreview";
+import VideoModal from "./ui/VideoModal";
 
 const ProjectCardContent = memo(({ project, index }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
-    if (project.images && project.images.length > 1) {
+    // Only auto-rotate images if no video and multiple images exist
+    if (!project.videoSrc && project.images && project.images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
       }, 3000);
       return () => clearInterval(interval);
     }
-  }, [project.images]);
+  }, [project.images, project.videoSrc]);
+
+  const handleVideoExpand = useCallback(() => {
+    setIsVideoModalOpen(true);
+  }, []);
+
+  const handleCloseVideoModal = useCallback(() => {
+    setIsVideoModalOpen(false);
+  }, []);
+
+  // Determine poster image for video
+  const videoPoster = project.videoPoster || (project.images && project.images[0]);
 
   return (
     <div className="h-full grid md:grid-cols-2">
-      {/* Image/Icon Section */}
+      {/* Image/Video Section */}
       <div
-        className={`relative bg-linear-to-br from-cerulean to-oxford-navy-light hidden md:flex items-center justify-center overflow-hidden ${!project.images ? "p-6" : ""}`}
+        className={`relative bg-linear-to-br from-cerulean to-oxford-navy-light hidden md:flex items-center justify-center overflow-hidden ${!project.images && !project.videoSrc ? "p-6" : ""}`}
       >
-        {project.images && project.images.length > 0 ? (
+        {/* Video Preview - shown if videoSrc exists */}
+        {project.videoSrc ? (
+          <>
+            <VideoPreview
+              videoSrc={project.videoSrc}
+              posterSrc={videoPoster}
+              alt={`${project.title} demo video`}
+              onExpand={handleVideoExpand}
+            />
+            <VideoModal
+              isOpen={isVideoModalOpen}
+              onClose={handleCloseVideoModal}
+              videoSrc={project.videoSrc}
+              posterSrc={videoPoster}
+              title={project.title}
+            />
+          </>
+        ) : project.images && project.images.length > 0 ? (
+          /* Image carousel - fallback when no video */
           <div className="absolute inset-0 w-full h-full">
             {project.imageLayout === "split-vertical" ? (
               <div className="flex flex-col h-full w-full">
@@ -54,6 +87,7 @@ const ProjectCardContent = memo(({ project, index }) => {
             <div className="absolute inset-0 bg-oxford-navy/10 group-hover:bg-transparent transition-colors duration-300"></div>
           </div>
         ) : (
+          /* Icon fallback when no images or video */
           <>
             <i
               className={`${project.icon || "fas fa-code"} text-9xl text-honeydew/30`}
