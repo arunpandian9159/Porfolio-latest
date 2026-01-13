@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import TerminalInput from "./TerminalInput";
 import TerminalOutput from "./TerminalOutput";
 import { executeCommand, COMMANDS } from "./commands";
+import "./Terminal.css";
 
 /**
  * Interactive Terminal Modal Component
@@ -114,7 +115,7 @@ const Terminal = ({ isOpen, onClose }) => {
       setHistoryIndex(newIndex);
       return newIndex === -1 ? "" : commandHistory[newIndex];
     },
-    [commandHistory, historyIndex],
+    [commandHistory, historyIndex]
   );
 
   if (!isOpen) return null;

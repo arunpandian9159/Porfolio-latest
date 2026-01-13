@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { animate, stagger } from "animejs";
+import "./Loader.css";
 
 const LOADER_NAME = "ARUN";
 
@@ -18,7 +19,7 @@ const Loader = ({ onComplete }) => {
     (index) => (el) => {
       letterRefs.current[index] = el;
     },
-    [],
+    []
   );
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { animate } from "animejs";
 import { profileData } from "../data/profileData";
 import { useIntersectionAnimate } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
+import "./Certifications.css";
 
 const CertCard = memo(({ cert, index, onImageClick }) => {
   const animationConfig = {

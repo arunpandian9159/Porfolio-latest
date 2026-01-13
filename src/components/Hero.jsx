@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { animate, stagger } from "animejs";
 import { profileData } from "../data/profileData";
+import "./Hero.css";
 
 // Pre-generated particle configurations for CSS-only animation
 const PARTICLES = [

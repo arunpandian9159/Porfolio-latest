@@ -79,66 +79,6 @@ body {
     color 300ms ease;
 }
 
-/* Loader Styles */
-.loader {
-  position: fixed;
-  inset: 0;
-  background: var(--bg-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-/* Add subtle background effect to loader */
-.loader::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    rgba(230, 57, 70, 0.1) 0%,
-    transparent 60%
-  );
-  pointer-events: none;
-}
-
-.loader-letter {
-  font-family: var(--font-family-display);
-  font-size: clamp(3rem, 10vw, 5rem);
-  font-weight: 900;
-  color: var(--color-punch-red);
-  text-shadow:
-    0 0 30px rgba(230, 57, 70, 0.6),
-    0 0 60px rgba(230, 57, 70, 0.3);
-  opacity: 0;
-  display: inline-block;
-}
-
-.loader-progress {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(
-    90deg,
-    var(--color-punch-red),
-    var(--color-frosted-blue),
-    var(--color-punch-red)
-  );
-  background-size: 200% 100%;
-  border-radius: 4px;
-  animation: shimmer 1.5s infinite linear;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-
-  100% {
-    background-position: -200% 0;
-  }
-}
-
 /* GPU acceleration for animated elements */
 .opacity-0,
 [class*="translate"],
@@ -175,68 +115,7 @@ section {
   contain: layout style;
 }
 
-/* Speed Lines Animation */
-@keyframes speedLine {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.speed-line {
-  position: absolute;
-  width: 200%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--color-punch-red),
-    transparent
-  );
-  animation: speedLine 3s infinite;
-  opacity: 0.3;
-}
-
-/* Avatar Aura Animation */
-@keyframes auraPulse {
-  0%,
-  100% {
-    opacity: 0.5;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-}
-
-.avatar-aura {
-  animation: auraPulse 2s ease-in-out infinite;
-}
-
-/* Frame Pulse Animation */
-@keyframes framePulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.5;
-    transform: scale(1.02);
-  }
-}
-
-.frame-pulse {
-  animation: framePulse 3s ease-in-out infinite;
-}
-
-/* Marker Pulse Animation */
+/* Marker Pulse Animation (shared) */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -251,27 +130,6 @@ section {
 
 .marker-pulse {
   animation: pulse 2s infinite;
-}
-
-/* Certification Shine Effect */
-.cert-shine {
-  position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 50%;
-  height: 200%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transform: rotate(25deg);
-  transition: 0.5s;
-}
-
-.cert-card:hover .cert-shine {
-  left: 150%;
 }
 
 /* Custom Scrollbar */
@@ -290,67 +148,6 @@ section {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-punch-red);
-}
-
-/* CSS-Only Particle Animation System - GPU Accelerated */
-.particles-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  will-change: transform, opacity;
-  animation: particleFloat var(--duration, 6s) var(--delay, 0s) infinite
-    ease-in-out;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-}
-
-.particle--red {
-  background: var(--color-punch-red);
-}
-
-.particle--blue {
-  background: var(--color-frosted-blue);
-}
-
-@keyframes particleFloat {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(0.5);
-    opacity: 0.2;
-  }
-
-  25% {
-    transform: translate3d(var(--move-x, 50px), var(--move-y, -30px), 0)
-      scale(1);
-    opacity: 0.6;
-  }
-
-  50% {
-    transform: translate3d(
-        calc(var(--move-x, 50px) * 1.5),
-        calc(var(--move-y, -30px) * 0.5),
-        0
-      )
-      scale(1.2);
-    opacity: 0.4;
-  }
-
-  75% {
-    transform: translate3d(
-        calc(var(--move-x, 50px) * 0.5),
-        calc(var(--move-y, -30px) * 1.2),
-        0
-      )
-      scale(0.8);
-    opacity: 0.5;
-  }
 }
 
 /* Font Display Class */
@@ -376,7 +173,6 @@ section {
 }
 
 /* Focus Visible Styles for Keyboard Navigation */
-/* Provides clear visual feedback for keyboard users */
 :focus-visible {
   outline: 2px solid var(--color-punch-red);
   outline-offset: 2px;
@@ -423,79 +219,13 @@ textarea:focus-visible {
   top: 0;
 }
 
-/* Terminal Styles */
-.terminal-content {
-  scrollbar-width: thin;
-  scrollbar-color: #30363d #0d1117;
-}
-
-.terminal-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.terminal-content::-webkit-scrollbar-track {
-  background: #0d1117;
-}
-
-.terminal-content::-webkit-scrollbar-thumb {
-  background: #30363d;
-  border-radius: 3px;
-}
-
-.terminal-content::-webkit-scrollbar-thumb:hover {
-  background: #484f58;
-}
-
-/* Terminal Scanlines Effect */
-.terminal-scanlines {
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.1) 0px,
-    rgba(0, 0, 0, 0.1) 1px,
-    transparent 1px,
-    transparent 2px
-  );
-  opacity: 0.3;
-}
-
-/* Terminal Open Animation */
-@keyframes terminalOpen {
-  0% {
-    opacity: 0;
-    transform: scale(0.95) translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-.animate-terminal-open {
-  animation: terminalOpen 200ms ease-out forwards;
-}
-
-/* Blinking Cursor Animation */
-@keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
-}
-
-.animate-blink {
-  animation: blink 1s step-end infinite;
-}
-
 /* Fade In Animation for Tooltips */
 @keyframes fadeIn {
   0% {
     opacity: 0;
     transform: translateX(-50%) translateY(-100%) scale(0.95);
   }
+
   100% {
     opacity: 1;
     transform: translateX(-50%) translateY(-100%) scale(1);
@@ -510,11 +240,13 @@ textarea:focus-visible {
    MOBILE-ONLY RESPONSIVE STYLES
    ========================================== */
 @media (max-width: 767px) {
+
   /* GitHub Activity - Show right side first (most recent contributions) */
   .github-activity-container .overflow-x-auto {
     direction: rtl;
   }
-  .github-activity-container .overflow-x-auto > * {
+
+  .github-activity-container .overflow-x-auto>* {
     direction: ltr;
   }
 
@@ -523,24 +255,22 @@ textarea:focus-visible {
     --logoloop-logoHeight: 3px !important;
     --logoloop-gap: 10px !important;
   }
+
   .tech-logo-loop .logoloop__item i {
     font-size: 30px !important;
   }
 
   /* Projects Section - Smaller text for mobile */
-  /* Project title - smaller on mobile */
   #projects .font-display {
     font-size: 1.25rem !important;
     line-height: 1.3 !important;
   }
 
-  /* Project description - smaller on mobile */
   #projects .text-frosted-blue\/80 {
     font-size: 0.875rem !important;
     line-height: 1.4 !important;
   }
 
-  /* Project skills/tech tags - smaller on mobile */
   #projects .bg-punch-red\/15 {
     font-size: 0.7rem !important;
     padding: 0.25rem 0.5rem !important;
