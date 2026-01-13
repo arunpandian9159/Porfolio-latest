@@ -9,6 +9,7 @@ const VideoModal = memo(
   ({ isOpen, onClose, videoSrc, posterSrc, title = "Video" }) => {
     const modalRef = useRef(null);
     const videoRef = useRef(null);
+    const videoContainerRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
@@ -35,11 +36,11 @@ const VideoModal = memo(
     }, []);
 
     const toggleFullscreen = useCallback(() => {
-      if (!modalRef.current) return;
+      if (!videoContainerRef.current) return;
 
       if (!document.fullscreenElement) {
-        modalRef.current.requestFullscreen?.() ||
-          modalRef.current.webkitRequestFullscreen?.();
+        videoContainerRef.current.requestFullscreen?.() ||
+          videoContainerRef.current.webkitRequestFullscreen?.();
         setIsFullscreen(true);
       } else {
         document.exitFullscreen?.() || document.webkitExitFullscreen?.();
@@ -47,12 +48,36 @@ const VideoModal = memo(
       }
     }, []);
 
-    // Handle escape key to close
+    // Handle fullscreen change events (when user exits via browser controls)
+    useEffect(() => {
+      const handleFullscreenChange = () => {
+        setIsFullscreen(!!document.fullscreenElement);
+      };
+
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      document.addEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+
+      return () => {
+        document.removeEventListener(
+          "fullscreenchange",
+          handleFullscreenChange
+        );
+        document.removeEventListener(
+          "webkitfullscreenchange",
+          handleFullscreenChange
+        );
+      };
+    }, []);
+
+    // Handle escape key to close (only when not in fullscreen)
     useEffect(() => {
       if (!isOpen) return;
 
       const handleKeyDown = (e) => {
-        if (e.key === "Escape") {
+        if (e.key === "Escape" && !isFullscreen) {
           onClose();
         } else if (e.key === " ") {
           e.preventDefault();
@@ -66,7 +91,14 @@ const VideoModal = memo(
 
       document.addEventListener("keydown", handleKeyDown);
       return () => document.removeEventListener("keydown", handleKeyDown);
-    }, [isOpen, onClose, togglePlay, toggleFullscreen, toggleMute]);
+    }, [
+      isOpen,
+      isFullscreen,
+      onClose,
+      togglePlay,
+      toggleFullscreen,
+      toggleMute,
+    ]);
 
     // Prevent body scroll when modal is open
     useEffect(() => {
@@ -100,7 +132,7 @@ const VideoModal = memo(
           onClose();
         }
       },
-      [onClose],
+      [onClose]
     );
 
     const handleVolumeChange = useCallback((e) => {
@@ -182,7 +214,12 @@ const VideoModal = memo(
 
         {/* Video container */}
         <div
-          className="relative w-full max-w-5xl mx-4 bg-oxford-navy-dark rounded-xl overflow-hidden shadow-2xl"
+          ref={videoContainerRef}
+          className={`relative bg-oxford-navy-dark overflow-hidden shadow-2xl transition-all duration-300 ${
+            isFullscreen
+              ? "w-screen h-screen max-w-none rounded-none"
+              : "w-full max-w-5xl mx-4 rounded-xl"
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Video element */}
@@ -190,7 +227,9 @@ const VideoModal = memo(
             ref={videoRef}
             src={videoSrc}
             poster={posterSrc}
-            className="w-full aspect-video object-contain bg-black"
+            className={`w-full object-contain bg-black ${
+              isFullscreen ? "h-screen" : "aspect-video"
+            }`}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onPlay={handlePlay}
@@ -262,8 +301,8 @@ const VideoModal = memo(
                         isMuted || volume === 0
                           ? "fa-volume-mute"
                           : volume < 0.5
-                            ? "fa-volume-down"
-                            : "fa-volume-up"
+                          ? "fa-volume-down"
+                          : "fa-volume-up"
                       }`}
                       aria-hidden="true"
                     ></i>
@@ -345,7 +384,7 @@ const VideoModal = memo(
     );
 
     return createPortal(modalContent, document.body);
-  },
+  }
 );
 
 VideoModal.displayName = "VideoModal";
