@@ -8,6 +8,7 @@ import {
 } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
 import GitHubActivity from "./ui/GitHubActivity";
+import { formatBoldText } from "../utils/formatText";
 
 const StatCard = memo(({ icon, value, label, index }) => {
   const countRef = useCountUp(value);
@@ -101,17 +102,8 @@ const About = () => {
             <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-radial from-punch-red/10 to-transparent pointer-events-none"></div>
 
             <div className="relative z-10">
-              <p className="text-frosted-blue/90 text-base md:text-lg mb-5 leading-relaxed">
-                An aspiring full-stack developer with a strong foundation in
-                front-end and back-end technologies. I have a passion for
-                building responsive, scalable, and user-focused web
-                applications.
-              </p>
               <p className="text-frosted-blue/90 text-base md:text-lg mb-8 leading-relaxed">
-                I am committed to writing clean, efficient code and continuously
-                learning new tools and frameworks. My goal is to deliver
-                seamless user experiences through intuitive interfaces and
-                robust server-side logic.
+                {formatBoldText(profile.bio)}
               </p>
 
               <div className="space-y-4">

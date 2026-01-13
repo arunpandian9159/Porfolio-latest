@@ -3,6 +3,7 @@ import { animate } from "animejs";
 import { profileData } from "../data/profileData";
 import { useIntersectionAnimate } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
+import { formatBoldText } from "../utils/formatText";
 
 const TimelineItem = memo(({ exp, index }) => {
   const animationConfig = {
@@ -43,13 +44,13 @@ const TimelineItem = memo(({ exp, index }) => {
           <ul className="list-disc list-outside ml-4 md:ml-5 text-frosted-blue/80 text-sm md:text-base mb-3 md:mb-4 space-y-1 md:space-y-2">
             {exp.description.map((point, idx) => (
               <li key={idx} className={idx >= 2 ? "hidden md:list-item" : ""}>
-                {point}
+                {formatBoldText(point)}
               </li>
             ))}
           </ul>
         ) : (
           <p className="text-frosted-blue/80 text-sm md:text-base mb-3 md:mb-4">
-            {exp.description}
+            {formatBoldText(exp.description)}
           </p>
         )}
         <div className="flex gap-2 md:gap-3 flex-wrap">

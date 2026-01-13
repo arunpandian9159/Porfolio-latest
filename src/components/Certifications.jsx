@@ -79,18 +79,13 @@ const AchievementItem = memo(({ item, index, onImageClick }) => {
   return (
     <div
       ref={itemRef}
-      className={`opacity-0 flex flex-col md:flex-row md:items-center gap-3 md:gap-4 bg-oxford-navy/50 border border-frosted-blue/15 rounded-lg md:rounded-xl p-4 md:p-5 transition-all hover:border-punch-red hover:translate-x-1 ${
-        item.image
-          ? "cursor-pointer"
-          : "text-center md:text-left items-center md:items-start"
+      className={`opacity-0 bg-oxford-navy/50 border border-frosted-blue/15 rounded-lg md:rounded-xl p-4 md:p-5 transition-all hover:border-punch-red hover:translate-x-1 ${
+        item.image ? "cursor-pointer" : ""
       }`}
       onClick={handleClick}
     >
-      <div
-        className={`flex items-center gap-3 w-full ${
-          !item.image ? "justify-center md:justify-start" : ""
-        }`}
-      >
+      <div className="flex items-center gap-3 md:gap-4">
+        {/* Icon or Image */}
         {item.image ? (
           <div className="w-12 h-9 md:w-16 md:h-12 rounded-lg overflow-hidden shrink-0">
             <img
@@ -107,36 +102,20 @@ const AchievementItem = memo(({ item, index, onImageClick }) => {
             ></i>
           </div>
         )}
-        <div className="flex-1 min-w-0 md:hidden text-left">
-          <span className="text-frosted-blue/90 text-sm font-semibold block whitespace-normal leading-tight">
+
+        {/* Text Content */}
+        <div className="flex-1 min-w-0">
+          <span className="text-frosted-blue/90 text-sm md:text-base font-semibold md:font-normal block whitespace-normal leading-tight">
             {item.text}
           </span>
-        </div>
-      </div>
-
-      <div className="hidden md:block flex-1 min-w-0">
-        <span className="text-frosted-blue/90 text-sm md:text-base block whitespace-normal leading-tight">
-          {item.text}
-        </span>
-        {item.image && (
-          <span className="block text-xs text-frosted-blue/50 mt-1">
-            Click to view
-          </span>
-        )}
-      </div>
-
-      <div
-        className={`flex items-center justify-between md:justify-end gap-4 mt-1 md:mt-0 ${
-          !item.image ? "hidden md:flex" : "w-full md:w-auto"
-        }`}
-      >
-        <div className="md:hidden">
           {item.image && (
-            <span className="block text-xs text-frosted-blue/50">
+            <span className="block text-xs text-frosted-blue/50 mt-1">
               Click to view certificate
             </span>
           )}
         </div>
+
+        {/* PDF Link */}
         {item.paperLink && (
           <a
             href={item.paperLink}

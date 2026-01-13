@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { animate, stagger } from "animejs";
 import { profileData } from "../data/profileData";
 import "./Hero.css";
+import { formatBoldText } from "../utils/formatText";
 
 // Pre-generated particle configurations for CSS-only animation
 const PARTICLES = [
@@ -377,7 +378,7 @@ const Hero = ({ isLoading }) => {
           </div>
 
           <p className="hero-bio text-frosted-blue/80 text-base md:text-lg mb-8 max-w-lg mx-auto md:mx-0 opacity-0">
-            {profile.shortBio}
+            {formatBoldText(profile.shortBio)}
           </p>
 
           <div className="hero-cta flex flex-wrap items-center gap-4 justify-center md:justify-start opacity-0">

@@ -6,6 +6,7 @@ import SectionHeader from "./ui/SectionHeader";
 import ScrollStack from "./ui/ScrollStack";
 import VideoPreview from "./ui/VideoPreview";
 import VideoModal from "./ui/VideoModal";
+import { formatBoldText } from "../utils/formatText";
 
 const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -124,13 +125,13 @@ const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
           <ul className="list-disc list-outside ml-5 text-frosted-blue/80 mb-4 space-y-2">
             {project.description.map((point, idx) => (
               <li key={idx} className={idx >= 2 ? "hidden md:list-item" : ""}>
-                {point}
+                {formatBoldText(point)}
               </li>
             ))}
           </ul>
         ) : (
           <p className="text-frosted-blue/80 mb-6 text-base md:text-lg leading-relaxed">
-            {project.description}
+            {formatBoldText(project.description)}
           </p>
         )}
         <div className="flex flex-wrap gap-2 mb-3">
