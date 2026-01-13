@@ -31,14 +31,18 @@ export const COMMANDS = {
           <div className="text-[#58a6ff] font-bold text-lg mb-2">
             {profileData.profile.name}
           </div>
-          <div className="text-[#f0883e] mb-2">{profileData.profile.headline} Developer</div>
+          <div className="text-[#f0883e] mb-2">
+            {profileData.profile.headline} Developer
+          </div>
           <div className="text-[#c9d1d9] text-sm leading-relaxed">
             {profileData.profile.shortBio}
           </div>
           <div className="mt-3 pt-3 border-t border-[#30363d] space-y-1 text-sm">
             <div className="flex gap-2">
               <span className="text-[#8b949e]">📍</span>
-              <span className="text-[#c9d1d9]">{profileData.profile.location}</span>
+              <span className="text-[#c9d1d9]">
+                {profileData.profile.location}
+              </span>
             </div>
             <div className="flex gap-2">
               <span className="text-[#8b949e]">📧</span>
@@ -51,7 +55,9 @@ export const COMMANDS = {
             </div>
             <div className="flex gap-2">
               <span className="text-[#8b949e]">📱</span>
-              <span className="text-[#c9d1d9]">{profileData.profile.phone}</span>
+              <span className="text-[#c9d1d9]">
+                {profileData.profile.phone}
+              </span>
             </div>
           </div>
         </div>
@@ -59,13 +65,12 @@ export const COMMANDS = {
     ),
   },
 
-
   skills: {
     description: "List technical skills",
     execute: () => (
       <div className="space-y-3">
         <div className="text-[#58a6ff] font-bold">Technical Skills:</div>
-        
+
         <div>
           <div className="text-[#f0883e] text-sm mb-1">Frontend</div>
           <div className="flex flex-wrap gap-2">
@@ -124,8 +129,12 @@ export const COMMANDS = {
               className="border border-[#30363d] rounded p-3 bg-[#161b22]"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-[#f0883e]">{project.icon && <i className={project.icon} />}</span>
-                <span className="text-[#c9d1d9] font-semibold">{project.title}</span>
+                <span className="text-[#f0883e]">
+                  {project.icon && <i className={project.icon} />}
+                </span>
+                <span className="text-[#c9d1d9] font-semibold">
+                  {project.title}
+                </span>
                 {project.isPublished && (
                   <span className="px-1.5 py-0.5 bg-[#238636]/20 text-[#3fb950] rounded text-xs">
                     IEEE Published
@@ -160,12 +169,12 @@ export const COMMANDS = {
             </div>
           ))}
         <div className="text-[#8b949e] text-xs">
-          Type 'projects --all' to see all {profileData.projects.length} projects
+          Type 'projects --all' to see all {profileData.projects.length}{" "}
+          projects
         </div>
       </div>
     ),
   },
-
 
   contact: {
     description: "Show contact methods",
@@ -191,7 +200,9 @@ export const COMMANDS = {
           <div className="flex items-center gap-3">
             <span className="text-[#f0883e] w-6">📍</span>
             <span className="text-[#8b949e]">Location:</span>
-            <span className="text-[#c9d1d9]">{profileData.profile.location}</span>
+            <span className="text-[#c9d1d9]">
+              {profileData.profile.location}
+            </span>
           </div>
         </div>
         <div className="text-[#8b949e] text-xs">
@@ -263,7 +274,10 @@ export const COMMANDS = {
               rel="noopener noreferrer"
               className="text-[#58a6ff] hover:underline"
             >
-              {profileData.socials.linkedin.replace("https://www.linkedin.com/in/", "")}
+              {profileData.socials.linkedin.replace(
+                "https://www.linkedin.com/in/",
+                "",
+              )}
             </a>
           </div>
         </div>
@@ -305,7 +319,6 @@ export const COMMANDS = {
     ),
   },
 };
-
 
 /**
  * Calculate Levenshtein distance between two strings
@@ -375,8 +388,12 @@ export const executeCommand = (input) => {
             className="border border-[#30363d] rounded p-3 bg-[#161b22]"
           >
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-[#f0883e]">{project.icon && <i className={project.icon} />}</span>
-              <span className="text-[#c9d1d9] font-semibold">{project.title}</span>
+              <span className="text-[#f0883e]">
+                {project.icon && <i className={project.icon} />}
+              </span>
+              <span className="text-[#c9d1d9] font-semibold">
+                {project.title}
+              </span>
               {project.featured && (
                 <span className="px-1.5 py-0.5 bg-[#f0883e]/20 text-[#f0883e] rounded text-xs">
                   Featured
@@ -410,9 +427,7 @@ export const executeCommand = (input) => {
 
   return (
     <div className="space-y-2">
-      <div className="text-[#f85149]">
-        Command not found: '{input}'
-      </div>
+      <div className="text-[#f85149]">Command not found: '{input}'</div>
       {suggestions.length > 0 && (
         <div className="text-[#8b949e]">
           Did you mean:{" "}

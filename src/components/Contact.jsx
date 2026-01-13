@@ -105,7 +105,7 @@ const Contact = () => {
                 </div>
               </a>
 
-              <div 
+              <div
                 className="contact-method-item flex items-center gap-5 p-5 bg-oxford-navy-dark/50 border border-frosted-blue/15 rounded-2xl opacity-0"
                 aria-label={`Location: ${profile.location}`}
               >
@@ -127,7 +127,11 @@ const Contact = () => {
             <h3 className="font-display text-xl font-bold mb-6">
               Connect With Me
             </h3>
-            <div className="flex justify-center gap-5" role="group" aria-label="Social media links">
+            <div
+              className="flex justify-center gap-5"
+              role="group"
+              aria-label="Social media links"
+            >
               <a
                 href={socials.github}
                 target="_blank"
@@ -145,7 +149,10 @@ const Contact = () => {
                 className="flex flex-col items-center gap-3 px-8 py-5 bg-oxford-navy/50 border border-frosted-blue/20 rounded-2xl text-frosted-blue/80 transition-all hover:border-[#0077b5] hover:text-[#0077b5] hover:bg-[#0077b5]/10"
                 aria-label="Visit my LinkedIn profile (opens in new tab)"
               >
-                <i className="fab fa-linkedin-in text-3xl" aria-hidden="true"></i>
+                <i
+                  className="fab fa-linkedin-in text-3xl"
+                  aria-hidden="true"
+                ></i>
                 <span>LinkedIn</span>
               </a>
             </div>

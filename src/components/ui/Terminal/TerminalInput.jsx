@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 /**
  * Terminal Input Component
  * Handles user input with blinking cursor and command history navigation
- * 
+ *
  * @param {Object} props
  * @param {Function} props.onSubmit - Callback when command is submitted
  * @param {Function} props.onHistoryNavigation - Callback for up/down arrow navigation
@@ -78,7 +78,7 @@ const TerminalInput = ({ onSubmit, onHistoryNavigation }) => {
           autoComplete="off"
           aria-label="Terminal command input"
         />
-        
+
         {/* Custom Blinking Cursor */}
         <span
           className="absolute top-0 text-[#27c93f] animate-blink pointer-events-none"

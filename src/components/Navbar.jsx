@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 const Navbar = ({ onTerminalOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  
+
   // Terminal typing animation state for mobile
   const [displayText, setDisplayText] = useState("");
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
@@ -117,14 +117,16 @@ const Navbar = ({ onTerminalOpen }) => {
         </div>
 
         {/* Mobile Terminal Preview */}
-        <div 
+        <div
           className="md:hidden flex items-center gap-2 cursor-pointer group"
           onClick={onTerminalOpen}
           role="button"
           aria-label="Open terminal"
         >
           <div className="flex items-center bg-[#0d1117] rounded-md px-3 py-1.5 border border-[#30363d] group-hover:border-cerulean/50 transition-all">
-            <span className="font-mono text-sm text-green-400"><span className="text-blue-400">Terminal</span> {displayText}</span>
+            <span className="font-mono text-sm text-green-400">
+              <span className="text-blue-400">Terminal</span> {displayText}
+            </span>
             <span
               className={`inline-block w-2 h-4 bg-green-400 ml-0.5 ${
                 isTyping ? "animate-pulse" : "opacity-0"
@@ -134,10 +136,7 @@ const Navbar = ({ onTerminalOpen }) => {
         </div>
 
         {/* Nav Menu - Desktop Only */}
-        <ul
-          className="hidden md:flex gap-8 list-none"
-          role="menubar"
-        >
+        <ul className="hidden md:flex gap-8 list-none" role="menubar">
           {navLinks.map((link) => (
             <li key={link.href} role="none">
               <a

@@ -44,13 +44,13 @@ export const useGitHubStats = (username = "arunpandian9159") => {
             timestamp: Date.now(),
             data: statsData,
             cachedUsername: username,
-          })
+          }),
         );
       } catch (e) {
         console.error("Error caching GitHub stats:", e);
       }
     },
-    [username]
+    [username],
   );
 
   const fetchGitHubStats = useCallback(async () => {
@@ -74,7 +74,7 @@ export const useGitHubStats = (username = "arunpandian9159") => {
     try {
       // Use the API suggested by the user
       const response = await fetch(
-        `https://github-contributions-api.deno.dev/arunpandian9159.json?flat=true`
+        `https://github-contributions-api.deno.dev/arunpandian9159.json?flat=true`,
       );
 
       if (!response.ok) {
@@ -99,7 +99,7 @@ export const useGitHubStats = (username = "arunpandian9159") => {
           total: stats.totalContributions,
           currentStreak: stats.currentStreak,
           longestStreak: stats.longestStreak,
-        }
+        },
       );
 
       setData(stats);
@@ -191,7 +191,7 @@ function calculateStreaks(sortedDays) {
 
   // Sort by date ascending for streak calculation
   const chronologicalDays = [...sortedDays].sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
+    (a, b) => new Date(a.date) - new Date(b.date),
   );
 
   const today = new Date();
@@ -224,7 +224,7 @@ function calculateStreaks(sortedDays) {
   // but only if that activity was today or yesterday.
   if (latestActivityDay) {
     const diffToToday = Math.floor(
-      (today - latestActivityDay) / (1000 * 60 * 60 * 24)
+      (today - latestActivityDay) / (1000 * 60 * 60 * 24),
     );
 
     if (diffToToday <= 1) {

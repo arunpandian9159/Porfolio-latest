@@ -88,7 +88,7 @@ export const useKeyboardNavigation = (options = {}) => {
         }
       }
     },
-    [onTerminalToggle, onEscape, navigateToSection]
+    [onTerminalToggle, onEscape, navigateToSection],
   );
 
   // Attach keyboard event listener

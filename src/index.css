@@ -61,8 +61,6 @@
   --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
-
-
 /* Base Styles */
 html {
   scroll-behavior: smooth;
@@ -76,7 +74,9 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color 300ms ease, color 300ms ease;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease;
 }
 
 /* Loader Styles */
@@ -423,7 +423,6 @@ textarea:focus-visible {
   top: 0;
 }
 
-
 /* Terminal Styles */
 .terminal-content {
   scrollbar-width: thin;
@@ -477,10 +476,12 @@ textarea:focus-visible {
 
 /* Blinking Cursor Animation */
 @keyframes blink {
-  0%, 50% {
+  0%,
+  50% {
     opacity: 1;
   }
-  51%, 100% {
+  51%,
+  100% {
     opacity: 0;
   }
 }

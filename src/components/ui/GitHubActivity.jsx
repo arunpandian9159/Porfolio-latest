@@ -231,7 +231,7 @@ const GitHubActivity = ({ username, className = "" }) => {
                     aria-label={
                       day
                         ? `${day.count} contributions on ${formatDate(
-                            day.date
+                            day.date,
                           )}`
                         : undefined
                     }

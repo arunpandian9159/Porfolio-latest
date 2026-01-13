@@ -252,7 +252,11 @@ const Hero = ({ isLoading }) => {
   const { profile, socials, stats } = profileData;
 
   return (
-    <section id="hero" className="min-h-screen relative flex overflow-hidden" aria-label="Introduction">
+    <section
+      id="hero"
+      className="min-h-screen relative flex overflow-hidden"
+      aria-label="Introduction"
+    >
       {/* Background */}
       <div className="absolute inset-0 bg-linear-to-br from-oxford-navy-dark via-oxford-navy to-cerulean/30">
         {/* Diagonal slice */}
@@ -396,7 +400,11 @@ const Hero = ({ isLoading }) => {
               <i className="fas fa-download" aria-hidden="true"></i>
             </a>
 
-            <div className="flex gap-4" role="group" aria-label="Social media links">
+            <div
+              className="flex gap-4"
+              role="group"
+              aria-label="Social media links"
+            >
               <a
                 href={socials.github}
                 target="_blank"
@@ -413,7 +421,10 @@ const Hero = ({ isLoading }) => {
                 className="w-12 h-12 border-2 border-frosted-blue rounded-full flex items-center justify-center text-frosted-blue transition-all hover:bg-frosted-blue hover:text-oxford-navy-dark hover:-translate-y-1"
                 aria-label="Visit my LinkedIn profile (opens in new tab)"
               >
-                <i className="fab fa-linkedin-in text-xl" aria-hidden="true"></i>
+                <i
+                  className="fab fa-linkedin-in text-xl"
+                  aria-hidden="true"
+                ></i>
               </a>
             </div>
           </div>

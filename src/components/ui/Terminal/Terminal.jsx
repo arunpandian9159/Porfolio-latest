@@ -6,7 +6,7 @@ import { executeCommand, COMMANDS } from "./commands";
 /**
  * Interactive Terminal Modal Component
  * Provides a command-line interface for exploring the portfolio
- * 
+ *
  * @param {Object} props
  * @param {boolean} props.isOpen - Whether the terminal is visible
  * @param {Function} props.onClose - Callback to close the terminal
@@ -64,10 +64,10 @@ const Terminal = ({ isOpen, onClose }) => {
    */
   const handleCommand = useCallback((input) => {
     const trimmedInput = input.trim().toLowerCase();
-    
+
     // Add command to history
     setHistory((prev) => [...prev, { type: "command", content: input }]);
-    
+
     // Add to command history for up/down navigation
     if (trimmedInput) {
       setCommandHistory((prev) => [...prev, trimmedInput]);
@@ -114,7 +114,7 @@ const Terminal = ({ isOpen, onClose }) => {
       setHistoryIndex(newIndex);
       return newIndex === -1 ? "" : commandHistory[newIndex];
     },
-    [commandHistory, historyIndex]
+    [commandHistory, historyIndex],
   );
 
   if (!isOpen) return null;
@@ -147,8 +147,14 @@ const Terminal = ({ isOpen, onClose }) => {
               className="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff5f56]/80 transition-colors"
               aria-label="Close terminal"
             />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" aria-hidden="true" />
-            <div className="w-3 h-3 rounded-full bg-[#27c93f]" aria-hidden="true" />
+            <div
+              className="w-3 h-3 rounded-full bg-[#ffbd2e]"
+              aria-hidden="true"
+            />
+            <div
+              className="w-3 h-3 rounded-full bg-[#27c93f]"
+              aria-hidden="true"
+            />
           </div>
           <span
             id="terminal-title"
@@ -173,7 +179,7 @@ const Terminal = ({ isOpen, onClose }) => {
               isHint={item.isHint}
             />
           ))}
-          
+
           {/* Input Line */}
           <TerminalInput
             onSubmit={handleCommand}
@@ -182,7 +188,10 @@ const Terminal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Scanline Effect */}
-        <div className="absolute inset-0 pointer-events-none terminal-scanlines" aria-hidden="true" />
+        <div
+          className="absolute inset-0 pointer-events-none terminal-scanlines"
+          aria-hidden="true"
+        />
       </div>
     </div>
   );

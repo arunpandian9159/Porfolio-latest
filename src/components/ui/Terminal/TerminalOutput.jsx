@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
  * Terminal Output Component
  * Displays command output with optional typewriter animation
  * Supports both text and JSX content
- * 
+ *
  * @param {Object} props
  * @param {string} props.type - "command" or "output"
  * @param {string|JSX.Element} props.content - Content to display
@@ -30,7 +30,7 @@ const TerminalOutput = ({ type, content, isWelcome, isHint }) => {
     setIsTyping(true);
     let index = 0;
     const text = String(content);
-    
+
     // Faster typing for welcome/hint messages
     const speed = isWelcome || isHint ? 20 : 15;
 
@@ -72,8 +72,8 @@ const TerminalOutput = ({ type, content, isWelcome, isHint }) => {
         isWelcome
           ? "text-[#58a6ff] font-bold text-base"
           : isHint
-          ? "text-[#8b949e] italic"
-          : "text-[#c9d1d9]"
+            ? "text-[#8b949e] italic"
+            : "text-[#c9d1d9]"
       }`}
     >
       {isJSX ? (
