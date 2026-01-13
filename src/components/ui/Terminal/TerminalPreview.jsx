@@ -57,7 +57,7 @@ const TerminalPreview = memo(({ onClick, isTerminalOpen }) => {
   return (
     <div
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-50 cursor-pointer group"
+      className="hidden md:block fixed bottom-6 right-6 z-50 cursor-pointer group"
       role="button"
       aria-label="Open terminal (Ctrl+K)"
       tabIndex={0}

@@ -2,6 +2,7 @@ import { useState, lazy, Suspense, useCallback } from "react";
 import { Loader, Navbar, Hero } from "./components/ui";
 import { Terminal, TerminalPreview } from "./components/ui/Terminal";
 import { useKeyboardNavigation } from "./hooks/useKeyboardNavigation";
+import MobileNavBar from "./components/MobileNavBar";
 
 // Lazy load below-the-fold components
 const About = lazy(() => import("./components/About"));
@@ -70,6 +71,9 @@ function App() {
 
       {/* Terminal Modal */}
       <Terminal isOpen={isTerminalOpen} onClose={handleTerminalClose} />
+
+      {/* Mobile Navigation Bar */}
+      <MobileNavBar />
     </>
   );
 }

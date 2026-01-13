@@ -2,7 +2,20 @@ import { useState, useEffect } from "react";
 
 const Navbar = ({ onTerminalOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  // Terminal typing animation state for mobile
+  const [displayText, setDisplayText] = useState("");
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const terminalLines = [
+    "$ help",
+    "$ skills",
+    "$ projects",
+    "$ contact",
+    "$ about",
+    "$ experience",
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,6 +24,30 @@ const Navbar = ({ onTerminalOpen }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Terminal typing effect for mobile
+  useEffect(() => {
+    const currentLine = terminalLines[currentLineIndex];
+    let charIndex = 0;
+
+    const typingInterval = setInterval(() => {
+      if (charIndex <= currentLine.length) {
+        setDisplayText(currentLine.substring(0, charIndex));
+        charIndex++;
+      } else {
+        clearInterval(typingInterval);
+        setIsTyping(false);
+
+        setTimeout(() => {
+          setDisplayText("");
+          setCurrentLineIndex((prev) => (prev + 1) % terminalLines.length);
+          setIsTyping(true);
+        }, 2000);
+      }
+    }, 100);
+
+    return () => clearInterval(typingInterval);
+  }, [currentLineIndex]);
 
   const navLinks = [
     { href: "#about", label: "About" },
@@ -30,7 +67,6 @@ const Navbar = ({ onTerminalOpen }) => {
         target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: targetPosition, behavior: "smooth" });
     }
-    setIsMenuOpen(false);
   };
 
   return (
@@ -80,69 +116,26 @@ const Navbar = ({ onTerminalOpen }) => {
           </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-2">
-          {/* Terminal Button (Mobile) */}
-          <button
-            onClick={onTerminalOpen}
-            className="p-2 text-honeydew hover:text-punch-red transition-colors"
-            aria-label="Open terminal"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <polyline points="4 17 10 11 4 5" />
-              <line x1="12" y1="19" x2="20" y2="19" />
-            </svg>
-          </button>
-
-          <button
-            className="flex flex-col gap-1.5 p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={
-              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-nav-menu"
-          >
+        {/* Mobile Terminal Preview */}
+        <div 
+          className="md:hidden flex items-center gap-2 cursor-pointer group"
+          onClick={onTerminalOpen}
+          role="button"
+          aria-label="Open terminal"
+        >
+          <div className="flex items-center bg-[#0d1117] rounded-md px-3 py-1.5 border border-[#30363d] group-hover:border-cerulean/50 transition-all">
+            <span className="font-mono text-sm text-green-400"><span className="text-blue-400">Terminal</span> {displayText}</span>
             <span
-              className={`w-6 h-0.5 bg-honeydew transition-all ${
-                isMenuOpen ? "rotate-45 translate-y-2" : ""
+              className={`inline-block w-2 h-4 bg-green-400 ml-0.5 ${
+                isTyping ? "animate-pulse" : "opacity-0"
               }`}
-              aria-hidden="true"
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-honeydew transition-all ${
-                isMenuOpen ? "opacity-0" : ""
-              }`}
-              aria-hidden="true"
-            ></span>
-            <span
-              className={`w-6 h-0.5 bg-honeydew transition-all ${
-                isMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-              aria-hidden="true"
-            ></span>
-          </button>
+            />
+          </div>
         </div>
 
-        {/* Nav Menu */}
+        {/* Nav Menu - Desktop Only */}
         <ul
-          id="mobile-nav-menu"
-          className={`md:flex gap-8 list-none ${
-            isMenuOpen
-              ? "flex flex-col absolute top-16 left-0 right-0 bg-oxford-navy/98 p-6 gap-4 border-b border-frosted-blue/10"
-              : "hidden md:flex"
-          }`}
+          className="hidden md:flex gap-8 list-none"
           role="menubar"
         >
           {navLinks.map((link) => (
