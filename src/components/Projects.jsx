@@ -144,15 +144,15 @@ const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
           ))}
         </div>
 
-        <div className="flex gap-6 mt-auto">
+        <div className="flex lg:gap-6 gap-5 mt-auto flex-wrap">
           {project.liveLink && (
             <a
               href={project.liveLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-frosted-blue hover:text-punch-red transition-colors font-medium flex items-center text-base md:text-lg"
+              className="text-frosted-blue hover:text-punch-red transition-colors font-medium flex items-center lg:text-lg text-[14px]"
             >
-              <i className="fas fa-external-link-alt mr-2"></i>Live Demo
+              <i className="fas fa-external-link-alt lg:mr-2 mr-1"></i>Live Demo
             </a>
           )}
           {project.repoLink && (
@@ -160,10 +160,19 @@ const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
               href={project.repoLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-frosted-blue hover:text-punch-red transition-colors font-medium flex items-center text-base md:text-lg"
+              className="text-frosted-blue hover:text-punch-red transition-colors font-medium flex items-center lg:text-lg text-[14px]"
             >
-              <i className="fab fa-github mr-2"></i>Code
+              <i className="fab fa-github lg:mr-2 mr-1"></i>Code
             </a>
+          )}
+          {/* Mobile-only demo video button */}
+          {project.videoSrc && (
+            <button
+              onClick={handleVideoExpand}
+              className="md:hidden text-frosted-blue hover:text-punch-red transition-colors font-medium flex items-center lg:text-lg text-[14px]"
+            >
+              <i className="fas fa-play-circle lg:mr-2 mr-1"></i>Demo Video
+            </button>
           )}
           {project.ieeeLink && (
             <a
