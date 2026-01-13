@@ -7,9 +7,8 @@ import ScrollStack from "./ui/ScrollStack";
 import VideoPreview from "./ui/VideoPreview";
 import VideoModal from "./ui/VideoModal";
 
-const ProjectCardContent = memo(({ project, index }) => {
+const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   useEffect(() => {
     // Only auto-rotate images if no video and multiple images exist
@@ -22,39 +21,33 @@ const ProjectCardContent = memo(({ project, index }) => {
   }, [project.images, project.videoSrc]);
 
   const handleVideoExpand = useCallback(() => {
-    setIsVideoModalOpen(true);
-  }, []);
-
-  const handleCloseVideoModal = useCallback(() => {
-    setIsVideoModalOpen(false);
-  }, []);
+    if (onVideoExpand) {
+      const videoPoster =
+        project.videoPoster || (project.images && project.images[0]);
+      onVideoExpand(project.videoSrc, videoPoster, project.title);
+    }
+  }, [onVideoExpand, project]);
 
   // Determine poster image for video
-  const videoPoster = project.videoPoster || (project.images && project.images[0]);
+  const videoPoster =
+    project.videoPoster || (project.images && project.images[0]);
 
   return (
     <div className="h-full grid md:grid-cols-2">
       {/* Image/Video Section */}
       <div
-        className={`relative bg-linear-to-br from-cerulean to-oxford-navy-light hidden md:flex items-center justify-center overflow-hidden ${!project.images && !project.videoSrc ? "p-6" : ""}`}
+        className={`relative bg-linear-to-br from-cerulean to-oxford-navy-light hidden md:flex items-center justify-center overflow-hidden ${
+          !project.images && !project.videoSrc ? "p-6" : ""
+        }`}
       >
         {/* Video Preview - shown if videoSrc exists */}
         {project.videoSrc ? (
-          <>
-            <VideoPreview
-              videoSrc={project.videoSrc}
-              posterSrc={videoPoster}
-              alt={`${project.title} demo video`}
-              onExpand={handleVideoExpand}
-            />
-            <VideoModal
-              isOpen={isVideoModalOpen}
-              onClose={handleCloseVideoModal}
-              videoSrc={project.videoSrc}
-              posterSrc={videoPoster}
-              title={project.title}
-            />
-          </>
+          <VideoPreview
+            videoSrc={project.videoSrc}
+            posterSrc={videoPoster}
+            alt={`${project.title} demo video`}
+            onExpand={handleVideoExpand}
+          />
         ) : project.images && project.images.length > 0 ? (
           /* Image carousel - fallback when no video */
           <div className="absolute inset-0 w-full h-full">
@@ -79,7 +72,9 @@ const ProjectCardContent = memo(({ project, index }) => {
                   key={i}
                   src={img}
                   alt={`${project.title} preview ${i + 1}`}
-                  className={`absolute inset-0 w-full h-full object-cover object-top-left transition-opacity duration-1000 ${i === currentImageIndex ? "opacity-100" : "opacity-0"}`}
+                  className={`absolute inset-0 w-full h-full object-cover object-top-left transition-opacity duration-1000 ${
+                    i === currentImageIndex ? "opacity-100" : "opacity-0"
+                  }`}
                 />
               ))
             )}
@@ -90,7 +85,9 @@ const ProjectCardContent = memo(({ project, index }) => {
           /* Icon fallback when no images or video */
           <>
             <i
-              className={`${project.icon || "fas fa-code"} text-9xl text-honeydew/30`}
+              className={`${
+                project.icon || "fas fa-code"
+              } text-9xl text-honeydew/30`}
             ></i>
             <div className="absolute inset-0 bg-linear-to-br from-punch-red/20 to-transparent opacity-0 hover:opacity-100 transition-opacity"></div>
           </>
@@ -126,7 +123,7 @@ const ProjectCardContent = memo(({ project, index }) => {
         {Array.isArray(project.description) ? (
           <ul className="list-disc list-outside ml-5 text-frosted-blue/80 mb-4 space-y-2">
             {project.description.map((point, idx) => (
-              <li key={idx} className={idx >= 1 ? "hidden md:list-item" : ""}>
+              <li key={idx} className={idx >= 2 ? "hidden md:list-item" : ""}>
                 {point}
               </li>
             ))}
@@ -136,7 +133,7 @@ const ProjectCardContent = memo(({ project, index }) => {
             {project.description}
           </p>
         )}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-3">
           {project.tech.map((t, i) => (
             <span
               key={i}
@@ -187,6 +184,26 @@ const ProjectCardContent = memo(({ project, index }) => {
 ProjectCardContent.displayName = "ProjectCardContent";
 
 const Projects = () => {
+  const [videoModal, setVideoModal] = useState({
+    isOpen: false,
+    videoSrc: null,
+    posterSrc: null,
+    title: "",
+  });
+
+  const handleVideoExpand = useCallback((videoSrc, posterSrc, title) => {
+    setVideoModal({
+      isOpen: true,
+      videoSrc,
+      posterSrc,
+      title,
+    });
+  }, []);
+
+  const handleCloseVideoModal = useCallback(() => {
+    setVideoModal((prev) => ({ ...prev, isOpen: false }));
+  }, []);
+
   const runHeaderAnimation = useCallback(() => {
     animate(".proj-header .section-tag", {
       opacity: [0, 1],
@@ -235,11 +252,24 @@ const Projects = () => {
           <ScrollStack
             items={projects}
             itemContent={(project, index) => (
-              <ProjectCardContent project={project} index={index} />
+              <ProjectCardContent
+                project={project}
+                index={index}
+                onVideoExpand={handleVideoExpand}
+              />
             )}
           />
         </div>
       </div>
+
+      {/* Video Modal - rendered at Projects level for proper z-index */}
+      <VideoModal
+        isOpen={videoModal.isOpen}
+        onClose={handleCloseVideoModal}
+        videoSrc={videoModal.videoSrc}
+        posterSrc={videoModal.posterSrc}
+        title={videoModal.title}
+      />
     </section>
   );
 };

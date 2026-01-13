@@ -161,9 +161,23 @@ export const profileData = {
       featured: true,
       images: ["/Jezcabs.png"],
       // Video preview support - add actual video file when available
-      videoSrc: "/videos/jezcabs-demo.mp4",
+      videoSrc: "/jezcabs-demo.mp4",
       videoPoster: "/Jezcabs.png",
       icon: "fas fa-car",
+    },
+    {
+      title: "Tariff Extraction Process",
+      description: [
+        "Engineered an AI-powered pipeline to extract and structure hotel tariff data from PDFs, using Mistral OCR for text extraction and Google Gemini for parsing base rates, seasonal surcharges, and pricing rules into queryable JSON.",
+        "Implemented a multi-stage LLM orchestration system with triage, validity period parsing, and rule extraction, enabling dynamic price calculations for room categories, meal plans, extra persons, and GST across validity dates.",
+        "Developed a pricing engine with fuzzy matching and rule application logic (surcharges, discounts, mandatory fees), automating  complex booking quotes and reducing manual tariff processing time for TripXplo's travel booking platform.",
+      ],
+      tech: ["Python", "Mistral AI", "Google Gemini", "Langchain"],
+      role: "AI Engineer Intern",
+      featured: false,
+      images: ["/tariff extraction 1.png", "/tariff extraction 2.png"],
+      icon: "fas fa-robot",
+      teamSize: 1,
     },
     {
       title: "NFT Based Certification System",
@@ -181,20 +195,6 @@ export const profileData = {
       isPublished: true,
       images: ["/SRM Conference image.jpg", "/certificate-presentation.webp"],
       icon: "fas fa-certificate",
-    },
-    {
-      title: "Tariff Extraction Process",
-      description: [
-        "Engineered an AI-powered pipeline to extract and structure hotel tariff data from PDFs, using Mistral OCR for text extraction and Google Gemini for parsing base rates, seasonal surcharges, and pricing rules into queryable JSON.",
-        "Implemented a multi-stage LLM orchestration system with triage, validity period parsing, and rule extraction, enabling dynamic price calculations for room categories, meal plans, extra persons, and GST across validity dates.",
-        "Developed a pricing engine with fuzzy matching and rule application logic (surcharges, discounts, mandatory fees), automating  complex booking quotes and reducing manual tariff processing time for TripXplo's travel booking platform.",
-      ],
-      tech: ["Python", "Mistral AI", "Google Gemini", "Langchain"],
-      role: "AI Engineer Intern",
-      featured: false,
-      images: ["/tariff extraction 1.png", "/tariff extraction 2.png"],
-      icon: "fas fa-robot",
-      teamSize: 1,
     },
     {
       title: "Internship Management System",

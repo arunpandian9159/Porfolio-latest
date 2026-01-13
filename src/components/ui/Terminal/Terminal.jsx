@@ -152,7 +152,7 @@ const Terminal = ({ isOpen, onClose }) => {
           </div>
           <span
             id="terminal-title"
-            className="text-[#8b949e] text-sm font-mono"
+            className="text-[#8b949e] text-xs sm:text-sm md:text-sm lg:text-sm font-mono"
           >
             terminal — arunpandian@portfolio
           </span>

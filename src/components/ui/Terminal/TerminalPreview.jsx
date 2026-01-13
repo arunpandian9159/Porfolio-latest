@@ -107,12 +107,6 @@ const TerminalPreview = memo(({ onClick, isTerminalOpen }) => {
         {/* Scanline effect */}
         <div className="absolute inset-0 pointer-events-none terminal-scanlines opacity-30" />
       </div>
-
-      {/* Floating indicator pulse */}
-      <div className="absolute -top-1 -right-1 w-3 h-3">
-        <span className="absolute inline-flex h-full w-full rounded-full bg-cerulean opacity-75 animate-ping" />
-        <span className="relative inline-flex rounded-full h-3 w-3 bg-cerulean" />
-      </div>
     </div>
   );
 });
