@@ -9,7 +9,7 @@ const CertCard = memo(({ cert, index, onImageClick }) => {
   const animationConfig = {
     opacity: [0, 1],
     rotateY: [45, 0],
-    duration: 400,
+    duration: 400, 
     delay: index * 50,
     easing: "easeOutExpo",
   };
