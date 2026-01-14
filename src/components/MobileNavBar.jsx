@@ -17,7 +17,7 @@ const MobileNavBar = () => {
     { id: "skills", label: "Skills", icon: "skills" },
     { id: "experience", label: "Experience", icon: "experience" },
     { id: "projects", label: "Projects", icon: "projects" },
-    { id: "contact", label: "Contact", icon: "contact" },
+    { id: "contact", label: "Contact", icon: "contact" }, 
   ];
 
   // Track active section based on scroll position
