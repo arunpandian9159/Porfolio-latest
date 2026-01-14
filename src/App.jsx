@@ -10,7 +10,7 @@ const Skills = lazy(() => import("./components/Skills"));
 const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
 const Education = lazy(() => import("./components/Education"));
-const Certifications = lazy(() => import("./components/Certifications"));
+const Certifications = lazy(() => import("./components/Certifications")); 
 const Contact = lazy(() => import("./components/Contact"));
 const Footer = lazy(() => import("./components/Footer"));
 const TechLogoLoop = lazy(() => import("./components/ui/TechLogoLoop"));
