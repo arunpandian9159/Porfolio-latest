@@ -7,7 +7,7 @@ import {
   useIntersectionAnimate,
 } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
-import GitHubActivity from "./ui/GitHubActivity";
+import GitHubActivity from "./ui/GitHubActivity"; 
 import { formatBoldText } from "../utils/formatText";
 
 const StatCard = memo(({ icon, value, label, index }) => {
