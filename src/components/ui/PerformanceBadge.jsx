@@ -15,7 +15,7 @@ const PerformanceBadge = ({ className = "" }) => {
         const navigation = performance.getEntriesByType("navigation")[0];
         if (navigation) {
           // Calculate load time in seconds
-          const time = (navigation.loadEventEnd - navigation.startTime) / 1000;
+          const time = (navigation.loadEventEnd - navigation.startTime) / 1000; 
           setLoadTime(time.toFixed(2));
         }
       } catch (error) {
