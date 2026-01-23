@@ -8,7 +8,7 @@ const Navbar = ({ onTerminalOpen }) => {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const terminalLines = [
+  const terminalLines = [ 
     "$ help",
     "$ skills",
     "$ projects",
