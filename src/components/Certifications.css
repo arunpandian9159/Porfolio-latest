@@ -11,7 +11,7 @@
             transparent,
             rgba(255, 255, 255, 0.1),
             transparent);
-    transform: rotate(25deg); 
+    transform: rotate(25deg);  
     transition: 0.5s;
 }
 
