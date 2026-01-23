@@ -16,7 +16,7 @@ const SectionHeader = memo(({ tag, title, highlight, className = "" }) => {
       <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
     </div>
   );
-});
+}); 
 
 SectionHeader.displayName = "SectionHeader";
 
