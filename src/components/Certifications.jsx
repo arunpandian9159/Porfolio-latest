@@ -11,7 +11,7 @@ const CertCard = memo(({ cert, index, onImageClick }) => {
     rotateY: [45, 0], 
     duration: 400, 
     delay: index * 50,
-    easing: "easeOutExpo",
+    easing: "easeOutExpo", 
   };
 
   const cardRef = useIntersectionAnimate(animationConfig);
