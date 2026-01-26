@@ -9,7 +9,7 @@ const PerformanceBadge = ({ className = "" }) => {
   const [loadTime, setLoadTime] = useState(null);
 
   useEffect(() => {
-    // Use Performance API to get page load time
+    // Use Performance API to get page load time 
     const measureLoadTime = () => {
       try {
         const navigation = performance.getEntriesByType("navigation")[0];
