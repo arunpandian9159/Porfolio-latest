@@ -7,7 +7,7 @@
 
 .terminal-content::-webkit-scrollbar {
     width: 6px;
-}
+} 
 
 .terminal-content::-webkit-scrollbar-track {
     background: #0d1117;
