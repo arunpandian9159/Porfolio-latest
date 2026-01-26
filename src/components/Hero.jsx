@@ -16,9 +16,9 @@ const PARTICLES = [
     moveX: 60,
     moveY: -40,
   },
-  { 
+  {
     size: 6,
-    color: "blue", 
+    color: "blue",
     left: 25,
     top: 15,
     duration: 7,
@@ -319,7 +319,7 @@ const Hero = ({ isLoading }) => {
                   height={256}
                   loading="eager"
                   decoding="async"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   onError={(e) => {
                     // Hide picture element if images fail
                     e.target.parentElement.style.display = "none";
