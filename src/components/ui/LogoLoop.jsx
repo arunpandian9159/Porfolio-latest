@@ -8,7 +8,7 @@ const toCssLength = (value) =>
 
 const useResizeObserver = (callback, elements, dependencies) => {
   useEffect(() => { 
-    if (!window.ResizeObserver) {
+    if (!window.ResizeObserver) { 
       const handleResize = () => callback(); 
       window.addEventListener("resize", handleResize);
       callback();
