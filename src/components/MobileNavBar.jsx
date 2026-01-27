@@ -11,7 +11,7 @@ const MobileNavBar = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [isProjectsBannerExpanded, setIsProjectsBannerExpanded] =
     useState(false);
-
+ 
   const navItems = [
     { id: "about", label: "About", icon: "home" },
     { id: "skills", label: "Skills", icon: "skills" }, 
