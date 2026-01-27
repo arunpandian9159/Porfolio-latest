@@ -9,7 +9,7 @@ const SkillCategory = memo(({ title, icon, skills, index }) => {
     (element) => {
       animate(element, { 
         opacity: [0, 1],
-        translateY: [30, 0],
+        translateY: [30, 0], 
         duration: 300,
         delay: index * 50,
         easing: "easeOutExpo",
