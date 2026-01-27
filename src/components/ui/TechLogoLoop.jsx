@@ -16,7 +16,7 @@ const techLogos = [
   },
   { 
     node: <i className="fab fa-react" style={{ color: "#61DAFB" }}></i>,
-    title: "React",
+    title: "React", 
   },
   {
     node: <i className="fab fa-node-js" style={{ color: "#339933" }}></i>,
