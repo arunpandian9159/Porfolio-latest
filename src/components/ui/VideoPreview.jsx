@@ -11,7 +11,7 @@ const VideoPreview = memo(
     alt = "Video preview",
     onExpand,
     className = "",
-  }) => {
+  }) => { 
     const videoRef = useRef(null);
     const containerRef = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
