@@ -11,7 +11,7 @@ const TimelineItem = memo(({ exp, index }) => {
     translateX: [-30, 0],
     duration: 400,
     delay: index * 100,
-    easing: "easeOutExpo",
+    easing: "easeOutExpo", 
   };
  
   const itemRef = useIntersectionAnimate(animationConfig);
