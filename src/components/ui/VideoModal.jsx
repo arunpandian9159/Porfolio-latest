@@ -18,7 +18,7 @@ const VideoModal = memo(
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showControls, setShowControls] = useState(true);
     const controlsTimeoutRef = useRef(null);
-
+ 
     // Video controls
     const togglePlay = useCallback(() => {
       if (!videoRef.current) return; 
