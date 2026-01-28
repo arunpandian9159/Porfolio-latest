@@ -18,7 +18,7 @@ const VideoPreview = memo(
     const [isVisible, setIsVisible] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [hasError, setHasError] = useState(false);
-    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 }); 
  
     // Intersection Observer for lazy loading
     useEffect(() => {
