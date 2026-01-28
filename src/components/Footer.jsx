@@ -17,7 +17,7 @@ const Footer = () => {
         <div className="pt-3 md:pt-4 border-t border-frosted-blue/10">
           <PerformanceBadge />
         </div>
-      </div>
+      </div> 
     </footer>
   ); 
 };
