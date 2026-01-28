@@ -19,5 +19,5 @@ const SectionHeader = memo(({ tag, title, highlight, className = "" }) => {
 }); 
  
 SectionHeader.displayName = "SectionHeader";
-
+ 
 export default SectionHeader;
