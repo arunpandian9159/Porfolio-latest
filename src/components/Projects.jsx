@@ -9,7 +9,7 @@ import VideoModal from "./ui/VideoModal";
 import { formatBoldText } from "../utils/formatText";
 
 const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0); 
 
   useEffect(() => {
     // Only auto-rotate images if no video and multiple images exist
