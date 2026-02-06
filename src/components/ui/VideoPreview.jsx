@@ -1,4 +1,5 @@
-import { memo, useRef, useState, useEffect, useCallback } from "react";
+import { memo, useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { isGoogleDriveUrl } from "../../utils/videoUtils";
 
 /**
  * VideoPreview component with lazy loading and auto-play on hover
@@ -19,6 +20,8 @@ const VideoPreview = memo(
     const [isHovering, setIsHovering] = useState(false);
     const [hasError, setHasError] = useState(false);
     const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
+    const isDriveVideo = useMemo(() => isGoogleDriveUrl(videoSrc), [videoSrc]);
 
     // Intersection Observer for lazy loading
     useEffect(() => {
@@ -75,23 +78,23 @@ const VideoPreview = memo(
             y: e.clientY - rect.top,
           });
         }
-        if (videoRef.current && isLoaded && !hasError) {
+        if (videoRef.current && isLoaded && !hasError && !isDriveVideo) {
           videoRef.current.play().catch(() => {
             // Silently handle autoplay failures
           });
         }
       },
-      [isLoaded, hasError],
+      [isLoaded, hasError, isDriveVideo],
     );
 
     // Pause on mouse leave
     const handleMouseLeave = useCallback(() => {
       setIsHovering(false);
-      if (videoRef.current && !videoRef.current.paused) {
+      if (videoRef.current && !videoRef.current.paused && !isDriveVideo) {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
       }
-    }, []);
+    }, [isDriveVideo]);
 
     // Handle click to expand
     const handleClick = useCallback(() => {
@@ -139,12 +142,14 @@ const VideoPreview = memo(
           src={posterSrc}
           alt={alt}
           className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-300 pointer-events-none ${
-            isLoaded && isHovering ? "opacity-0" : "opacity-100"
+            isLoaded && isHovering && !isDriveVideo
+              ? "opacity-0"
+              : "opacity-100"
           }`}
         />
 
-        {/* Video element (lazy loaded) */}
-        {isVisible && (
+        {/* Video element (lazy loaded) - only for direct video links */}
+        {isVisible && !isDriveVideo && (
           <video
             ref={videoRef}
             src={videoSrc}

@@ -22,7 +22,7 @@ const TimelineItem = memo(({ exp, index }) => {
       className="relative pl-6 md:pl-10 pb-6 md:pb-10 opacity-0"
     >
       {/* Marker */}
-      <div className="absolute left-[-9px] top-1">
+      <div className="absolute -left-2.25 top-1">
         <div className="w-4 h-4 md:w-5 md:h-5 bg-punch-red rounded-full border-2 md:border-3 border-oxford-navy-dark"></div>
         <div className="absolute -inset-1 border-2 border-punch-red rounded-full marker-pulse"></div>
       </div>
@@ -117,7 +117,7 @@ const Experience = () => {
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto pl-5 md:pl-8">
           {/* Line */}
-          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-linear-to-b from-punch-red to-frosted-blue"></div>
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-linear-to-b from-punch-red to-frosted-blue"></div>
 
           {experience.map((exp, i) => (
             <TimelineItem key={i} exp={exp} index={i} />

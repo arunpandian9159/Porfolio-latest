@@ -161,7 +161,8 @@ export const profileData = {
       featured: true,
       images: ["/Jezcabs.png"],
       // Video preview support - add actual video file when available
-      videoSrc: "/jezcabs-demo.mp4",
+      videoSrc:
+        "https://drive.google.com/file/d/1DDC954-pc7YLPjN39xJjMi5yX5qxQk4T/preview",
       videoPoster: "/Jezcabs.png",
       icon: "fas fa-car",
     },
