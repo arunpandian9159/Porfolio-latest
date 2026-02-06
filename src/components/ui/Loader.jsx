@@ -7,8 +7,8 @@ const LOADER_NAME = "ARUN";
 const Loader = ({ onComplete }) => {
   const loaderRef = useRef(null);
   const progressRef = useRef(null);
-  const letterRefs = useRef([]);  
-  const [isHidden, setIsHidden] = useState(false);  
+  const letterRefs = useRef([]);
+  const [isHidden, setIsHidden] = useState(false);
   const hasRun = useRef(false);
 
   // Memoize letters array to avoid recreating on each render
@@ -19,7 +19,7 @@ const Loader = ({ onComplete }) => {
     (index) => (el) => {
       letterRefs.current[index] = el;
     },
-    []
+    [],
   );
 
   useEffect(() => {

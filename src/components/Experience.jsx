@@ -11,14 +11,14 @@ const TimelineItem = memo(({ exp, index }) => {
     translateX: [-30, 0],
     duration: 400,
     delay: index * 100,
-    easing: "easeOutExpo", 
+    easing: "easeOutExpo",
   };
- 
+
   const itemRef = useIntersectionAnimate(animationConfig);
- 
+
   return (
     <div
-      ref={itemRef} 
+      ref={itemRef}
       className="relative pl-6 md:pl-10 pb-6 md:pb-10 opacity-0"
     >
       {/* Marker */}

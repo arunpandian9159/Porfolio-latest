@@ -11,11 +11,11 @@ const Contact = () => {
       translateY: [-20, 0],
       duration: 300,
       easing: "easeOutExpo",
-    }); 
-    animate(".contact-header .section-title", { 
-      opacity: [0, 1], 
-      translateY: [30, 0], 
-      duration: 400, 
+    });
+    animate(".contact-header .section-title", {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 400,
       delay: 100,
       easing: "easeOutExpo",
     });

@@ -179,7 +179,6 @@ Contributions are welcome! Please follow these guidelines:
    ```
 
 3. **Make Your Changes**
-
    - Follow the existing code style
    - Write meaningful commit messages
    - Test your changes thoroughly

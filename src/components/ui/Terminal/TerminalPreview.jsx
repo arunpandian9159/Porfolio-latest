@@ -10,7 +10,7 @@ import { useState, useEffect, memo } from "react";
  * @param {boolean} props.isTerminalOpen - Whether the main terminal is currently open
  */
 const TerminalPreview = memo(({ onClick, isTerminalOpen }) => {
-  const [displayText, setDisplayText] = useState(""); 
+  const [displayText, setDisplayText] = useState("");
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 

@@ -7,7 +7,7 @@ import "./Terminal.css";
 /**
  * Interactive Terminal Modal Component
  * Provides a command-line interface for exploring the portfolio
- * 
+ *
  * @param {Object} props
  * @param {boolean} props.isOpen - Whether the terminal is visible
  * @param {Function} props.onClose - Callback to close the terminal
@@ -115,7 +115,7 @@ const Terminal = ({ isOpen, onClose }) => {
       setHistoryIndex(newIndex);
       return newIndex === -1 ? "" : commandHistory[newIndex];
     },
-    [commandHistory, historyIndex]
+    [commandHistory, historyIndex],
   );
 
   if (!isOpen) return null;

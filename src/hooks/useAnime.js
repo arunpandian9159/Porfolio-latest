@@ -3,4 +3,3 @@ export {
   useCountUp,
   useIntersectionAnimate as useAnimeOnView,
 } from "./useIntersectionAnimate";
- 

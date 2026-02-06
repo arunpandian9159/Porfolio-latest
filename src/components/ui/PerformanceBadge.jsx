@@ -8,19 +8,19 @@ import { useState, useEffect } from "react";
 const PerformanceBadge = ({ className = "" }) => {
   const [loadTime, setLoadTime] = useState(null);
 
-  useEffect(() => { 
-    // Use Performance API to get page load time 
+  useEffect(() => {
+    // Use Performance API to get page load time
     const measureLoadTime = () => {
       try {
         const navigation = performance.getEntriesByType("navigation")[0];
         if (navigation) {
           // Calculate load time in seconds
-          const time = (navigation.loadEventEnd - navigation.startTime) / 1000; 
+          const time = (navigation.loadEventEnd - navigation.startTime) / 1000;
           setLoadTime(time.toFixed(2));
         }
       } catch (error) {
         // Performance API unavailable - gracefully degrade
-        console.warn("Performance API unavailable:", error); 
+        console.warn("Performance API unavailable:", error);
       }
     };
 

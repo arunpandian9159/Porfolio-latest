@@ -4,8 +4,8 @@
   --logoloop-gap: 32px;
   --logoloop-logoHeight: 28px;
   --logoloop-fadeColorAuto: #1d3557;
-} 
-  
+}
+
 .logoloop--vertical {
   height: 100%;
   display: inline-block;
@@ -170,7 +170,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .logoloop__track {
-    transform: translate3d(0, 0, 0) !important;
+    /* Allow the loop but don't force it to be static if JS is controlling it */
+    will-change: auto;
   }
 
   .logoloop__item img,

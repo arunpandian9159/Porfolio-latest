@@ -7,9 +7,9 @@ const toCssLength = (value) =>
   typeof value === "number" ? `${value}px` : (value ?? undefined);
 
 const useResizeObserver = (callback, elements, dependencies) => {
-  useEffect(() => { 
-    if (!window.ResizeObserver) {  
-      const handleResize = () => callback(); 
+  useEffect(() => {
+    if (!window.ResizeObserver) {
+      const handleResize = () => callback();
       window.addEventListener("resize", handleResize);
       callback();
       return () => window.removeEventListener("resize", handleResize);
@@ -184,50 +184,67 @@ export const LogoLoop = memo(
     }, [speed, direction, isVertical]);
 
     const updateDimensions = useCallback(() => {
-      const containerWidth = containerRef.current?.clientWidth ?? 0;
-      const sequenceRect = seqRef.current?.getBoundingClientRect?.();
+      const containerElem = containerRef.current;
+      const seqElem = seqRef.current;
+      if (!containerElem || !seqElem) return;
+
+      const containerWidth = containerElem.clientWidth ?? 0;
+      const sequenceRect = seqElem.getBoundingClientRect?.();
       const sequenceWidth = sequenceRect?.width ?? 0;
       const sequenceHeight = sequenceRect?.height ?? 0;
+
       if (isVertical) {
-        const parentHeight =
-          containerRef.current?.parentElement?.clientHeight ?? 0;
-        if (containerRef.current && parentHeight > 0) {
+        const parentHeight = containerElem.parentElement?.clientHeight ?? 0;
+        if (parentHeight > 0) {
           const targetHeight = Math.ceil(parentHeight);
-          if (containerRef.current.style.height !== `${targetHeight}px`)
-            containerRef.current.style.height = `${targetHeight}px`;
+          if (containerElem.style.height !== `${targetHeight}px`) {
+            containerElem.style.height = `${targetHeight}px`;
+          }
         }
         if (sequenceHeight > 0) {
-          setSeqHeight(Math.ceil(sequenceHeight));
+          const roundedHeight = Math.ceil(sequenceHeight);
+          setSeqHeight((prev) => {
+            if (prev === roundedHeight) return prev;
+            return roundedHeight;
+          });
+
           const viewport =
-            containerRef.current?.clientHeight ??
-            parentHeight ??
-            sequenceHeight;
+            containerElem.clientHeight || parentHeight || sequenceHeight;
           const copiesNeeded =
             Math.ceil(viewport / sequenceHeight) +
             ANIMATION_CONFIG.COPY_HEADROOM;
-          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+          setCopyCount((prev) => {
+            const next = Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded);
+            return prev === next ? prev : next;
+          });
         }
       } else if (sequenceWidth > 0) {
-        setSeqWidth(Math.ceil(sequenceWidth));
+        const roundedWidth = Math.ceil(sequenceWidth);
+        setSeqWidth((prev) => {
+          if (prev === roundedWidth) return prev;
+          return roundedWidth;
+        });
+
         const copiesNeeded =
           Math.ceil(containerWidth / sequenceWidth) +
           ANIMATION_CONFIG.COPY_HEADROOM;
-        setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+        setCopyCount((prev) => {
+          const next = Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded);
+          return prev === next ? prev : next;
+        });
       }
     }, [isVertical]);
 
-    useResizeObserver(
-      updateDimensions,
-      [containerRef, seqRef],
+    // Stabilize dependency arrays
+    const observerElements = useMemo(() => [containerRef, seqRef], []);
+    const observerDeps = useMemo(
+      () => [logos, gap, logoHeight, isVertical],
       [logos, gap, logoHeight, isVertical],
     );
 
-    useImageLoader(seqRef, updateDimensions, [
-      logos,
-      gap,
-      logoHeight,
-      isVertical,
-    ]);
+    useResizeObserver(updateDimensions, observerElements, observerDeps);
+
+    useImageLoader(seqRef, updateDimensions, observerDeps);
 
     useAnimationLoop(
       trackRef,

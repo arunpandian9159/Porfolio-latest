@@ -6,7 +6,7 @@ const techLogos = [
     node: <i className="fab fa-html5" style={{ color: "#E34F26" }}></i>,
     title: "HTML5",
   },
-  { 
+  {
     node: <i className="fab fa-css3-alt" style={{ color: "#1572B6" }}></i>,
     title: "CSS3",
   },
@@ -14,9 +14,9 @@ const techLogos = [
     node: <i className="fab fa-js-square" style={{ color: "#F7DF1E" }}></i>,
     title: "JavaScript",
   },
-  {  
+  {
     node: <i className="fab fa-react" style={{ color: "#61DAFB" }}></i>,
-    title: "React", 
+    title: "React",
   },
   {
     node: <i className="fab fa-node-js" style={{ color: "#339933" }}></i>,

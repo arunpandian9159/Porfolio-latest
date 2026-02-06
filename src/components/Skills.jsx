@@ -7,22 +7,22 @@ import SectionHeader from "./ui/SectionHeader";
 const SkillCategory = memo(({ title, icon, skills, index }) => {
   const runAnimation = useCallback(
     (element) => {
-      animate(element, { 
+      animate(element, {
         opacity: [0, 1],
-        translateY: [30, 0], 
+        translateY: [30, 0],
         duration: 300,
         delay: index * 50,
         easing: "easeOutExpo",
       });
       animate(element.querySelectorAll(".skill-tag"), {
-        opacity: [0, 1],  
+        opacity: [0, 1],
         scale: [0.8, 1],
         delay: stagger(30, { start: 150 + index * 50 }),
         duration: 200,
         easing: "easeOutExpo",
       });
     },
-    [index]
+    [index],
   );
 
   const categoryRef = useIntersectionAnimate(runAnimation);

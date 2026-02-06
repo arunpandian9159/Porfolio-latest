@@ -5,13 +5,13 @@ import { useGitHubStats } from "../../hooks/useGitHubStats";
  * GitHub Activity visualization component
  * Displays contribution grid and stats
  */
-const GitHubActivity = ({ username, className = "" }) => { 
+const GitHubActivity = ({ username, className = "" }) => {
   const { loading, error, data } = useGitHubStats(username);
   const [tooltip, setTooltip] = useState({
     visible: false,
     x: 0,
     y: 0,
-    date: "",  
+    date: "",
     count: 0,
   });
 

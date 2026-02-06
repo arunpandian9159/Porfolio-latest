@@ -11,14 +11,14 @@ const EducationCard = memo(({ edu, index }) => {
     scale: [0.95, 1],
     duration: 350,
     delay: index * 75,
-    easing: "easeOutExpo", 
+    easing: "easeOutExpo",
   };
 
   const cardRef = useIntersectionAnimate(animationConfig, { threshold: 0.2 });
- 
+
   return (
     <div
-      ref={cardRef} 
+      ref={cardRef}
       className={`opacity-0 ${
         edu.isMain
           ? "bg-linear-to-br from-punch-red/10 to-oxford-navy/50 border-punch-red"

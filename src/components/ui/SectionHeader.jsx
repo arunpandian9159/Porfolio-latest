@@ -2,7 +2,7 @@ import { memo } from "react";
 
 /**
  * Reusable Section Header Component
- * Standardizes the header structure across all sections 
+ * Standardizes the header structure across all sections
  */
 const SectionHeader = memo(({ tag, title, highlight, className = "" }) => {
   return (
@@ -16,8 +16,8 @@ const SectionHeader = memo(({ tag, title, highlight, className = "" }) => {
       <div className="title-decoration w-0 h-1 bg-linear-to-r from-punch-red to-frosted-blue mx-auto rounded"></div>
     </div>
   );
-}); 
- 
+});
+
 SectionHeader.displayName = "SectionHeader";
- 
+
 export default SectionHeader;

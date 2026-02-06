@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
  * Supports full video controls, keyboard navigation, and click outside to close
  */
 const VideoModal = memo(
-  ({ isOpen, onClose, videoSrc, posterSrc, title = "Video" }) => { 
+  ({ isOpen, onClose, videoSrc, posterSrc, title = "Video" }) => {
     const modalRef = useRef(null);
     const videoRef = useRef(null);
     const videoContainerRef = useRef(null);
@@ -17,11 +17,11 @@ const VideoModal = memo(
     const [isMuted, setIsMuted] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [showControls, setShowControls] = useState(true);
-    const controlsTimeoutRef = useRef(null); 
- 
+    const controlsTimeoutRef = useRef(null);
+
     // Video controls
     const togglePlay = useCallback(() => {
-      if (!videoRef.current) return; 
+      if (!videoRef.current) return;
       if (videoRef.current.paused) {
         videoRef.current.play().catch(() => {});
       } else {
@@ -57,17 +57,17 @@ const VideoModal = memo(
       document.addEventListener("fullscreenchange", handleFullscreenChange);
       document.addEventListener(
         "webkitfullscreenchange",
-        handleFullscreenChange
+        handleFullscreenChange,
       );
 
       return () => {
         document.removeEventListener(
           "fullscreenchange",
-          handleFullscreenChange
+          handleFullscreenChange,
         );
         document.removeEventListener(
           "webkitfullscreenchange",
-          handleFullscreenChange
+          handleFullscreenChange,
         );
       };
     }, []);
@@ -132,7 +132,7 @@ const VideoModal = memo(
           onClose();
         }
       },
-      [onClose]
+      [onClose],
     );
 
     const handleVolumeChange = useCallback((e) => {
@@ -301,8 +301,8 @@ const VideoModal = memo(
                         isMuted || volume === 0
                           ? "fa-volume-mute"
                           : volume < 0.5
-                          ? "fa-volume-down"
-                          : "fa-volume-up"
+                            ? "fa-volume-down"
+                            : "fa-volume-up"
                       }`}
                       aria-hidden="true"
                     ></i>
@@ -384,7 +384,7 @@ const VideoModal = memo(
     );
 
     return createPortal(modalContent, document.body);
-  }
+  },
 );
 
 VideoModal.displayName = "VideoModal";

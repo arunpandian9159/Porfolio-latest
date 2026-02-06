@@ -4,20 +4,20 @@ import { profileData } from "../data/profileData";
 import { useIntersectionAnimate } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
 import ScrollStack from "./ui/ScrollStack";
-import VideoPreview from "./ui/VideoPreview"; 
+import VideoPreview from "./ui/VideoPreview";
 import VideoModal from "./ui/VideoModal";
 import { formatBoldText } from "../utils/formatText";
 
 const ProjectCardContent = memo(({ project, index, onVideoExpand }) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0); 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     // Only auto-rotate images if no video and multiple images exist
     if (!project.videoSrc && project.images && project.images.length > 1) {
       const interval = setInterval(() => {
         setCurrentImageIndex((prev) => (prev + 1) % project.images.length);
-      }, 3000); 
-      return () => clearInterval(interval); 
+      }, 3000);
+      return () => clearInterval(interval);
     }
   }, [project.images, project.videoSrc]);
 

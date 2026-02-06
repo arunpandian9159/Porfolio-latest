@@ -11,13 +11,13 @@ const MobileNavBar = () => {
   const [activeSection, setActiveSection] = useState("about");
   const [isProjectsBannerExpanded, setIsProjectsBannerExpanded] =
     useState(false);
- 
+
   const navItems = [
     { id: "about", label: "About", icon: "home" },
-    { id: "skills", label: "Skills", icon: "skills" }, 
-    { id: "experience", label: "Experience", icon: "experience" }, 
+    { id: "skills", label: "Skills", icon: "skills" },
+    { id: "experience", label: "Experience", icon: "experience" },
     { id: "projects", label: "Projects", icon: "projects" },
-    { id: "contact", label: "Contact", icon: "contact" }, 
+    { id: "contact", label: "Contact", icon: "contact" },
   ];
 
   // Track active section based on scroll position

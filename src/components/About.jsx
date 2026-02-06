@@ -7,13 +7,13 @@ import {
   useIntersectionAnimate,
 } from "../hooks/useIntersectionAnimate";
 import SectionHeader from "./ui/SectionHeader";
-import GitHubActivity from "./ui/GitHubActivity"; 
+import GitHubActivity from "./ui/GitHubActivity";
 import { formatBoldText } from "../utils/formatText";
 
 const StatCard = memo(({ icon, value, label, index }) => {
-  const countRef = useCountUp(value); 
-  const cardRef = useCardReveal(index, { translateY: [20, 0] });  
- 
+  const countRef = useCountUp(value);
+  const cardRef = useCardReveal(index, { translateY: [20, 0] });
+
   return (
     <div
       ref={cardRef}

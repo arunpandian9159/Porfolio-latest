@@ -5,21 +5,21 @@ import { memo, useRef, useState, useEffect, useCallback } from "react";
  * Falls back to poster image if video is unavailable
  */
 const VideoPreview = memo(
-  ({ 
+  ({
     videoSrc,
     posterSrc,
     alt = "Video preview",
     onExpand,
     className = "",
-  }) => { 
+  }) => {
     const videoRef = useRef(null);
     const containerRef = useRef(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [hasError, setHasError] = useState(false);
-    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 }); 
- 
+    const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
     // Intersection Observer for lazy loading
     useEffect(() => {
       const container = containerRef.current;
