@@ -158,7 +158,7 @@ export const profileData = {
         "https://github.com/arunpandian9159/Jez-Cabs-Management-Platform",
       teamSize: 1,
       role: "Full Stack Developer",
-      featured: true,
+      featured: true, 
       images: ["/Jezcabs.png"],
       // Video preview support - add actual video file when available
       videoSrc:
