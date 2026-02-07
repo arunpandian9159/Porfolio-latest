@@ -12,7 +12,7 @@ export const useGitHubStats = (username = "arunpandian9159") => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
-
+ 
   const getCachedData = useCallback(() => {
     try {
       const cached = localStorage.getItem(CACHE_KEY);
