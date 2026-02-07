@@ -291,7 +291,7 @@ const Hero = ({ isLoading }) => {
             />
           ))}
         </div>
-      </div>
+      </div> 
 
       {/* Content */}
       <div className="grid md:grid-cols-[1fr_1.2fr] gap-8 md:gap-16 items-center min-h-screen px-4 md:px-12 py-16 md:py-24 max-w-7xl mx-auto z-10 w-full">
