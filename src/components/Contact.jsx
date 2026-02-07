@@ -17,7 +17,7 @@ const Contact = () => {
       translateY: [30, 0],
       duration: 400,
       delay: 100,
-      easing: "easeOutExpo",
+      easing: "easeOutExpo", 
     });
     animate(".contact-header .title-decoration", {
       width: [0, 80],
