@@ -112,7 +112,7 @@ const Experience = () => {
           title="Work"
           highlight="Experience"
           className="exp-header"
-        />
+        /> 
 
         {/* Timeline */}
         <div className="relative max-w-3xl mx-auto pl-5 md:pl-8">
