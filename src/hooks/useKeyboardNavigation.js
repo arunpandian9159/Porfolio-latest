@@ -12,7 +12,7 @@ const SECTION_MAP = {
   5: "projects",
   6: "education",
   7: "certifications",
-  8: "contact",
+  8: "contact", 
 };
 
 /**
