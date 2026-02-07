@@ -12,7 +12,7 @@ import { animate } from "animejs";
 export const useIntersectionAnimate = (animationConfig, options = {}) => {
   const ref = useRef(null);
   const hasAnimated = useRef(false);
-
+ 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
