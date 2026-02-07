@@ -14,7 +14,7 @@ const CertCard = memo(({ cert, index, onImageClick }) => {
     easing: "easeOutExpo",
   };
 
-  const cardRef = useIntersectionAnimate(animationConfig);
+  const cardRef = useIntersectionAnimate(animationConfig); 
 
   const handleClick = useCallback(() => {
     if (cert.image) {
