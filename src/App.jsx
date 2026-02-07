@@ -17,7 +17,7 @@ const TechLogoLoop = lazy(() => import("./components/ui/TechLogoLoop"));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false); 
 
   const handleTerminalToggle = useCallback(() => {
     setIsTerminalOpen((prev) => !prev);
