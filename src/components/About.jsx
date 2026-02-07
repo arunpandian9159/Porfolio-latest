@@ -6,7 +6,7 @@ import {
   useCardReveal,
   useIntersectionAnimate,
 } from "../hooks/useIntersectionAnimate";
-import SectionHeader from "./ui/SectionHeader";
+import SectionHeader from "./ui/SectionHeader"; 
 import GitHubActivity from "./ui/GitHubActivity";
 import { formatBoldText } from "../utils/formatText";
 
