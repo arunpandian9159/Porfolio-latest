@@ -18,7 +18,7 @@ export const formatBoldText = (text) => {
         <strong key={index} className="font-semibold">
           {boldText}
         </strong>
-      );
+      ); 
     }
     return part;
   });
