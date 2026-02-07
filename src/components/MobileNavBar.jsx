@@ -5,7 +5,7 @@ import {
   FaBriefcase,
   FaLaptopCode,
   FaEnvelope,
-} from "react-icons/fa6";
+} from "react-icons/fa6"; 
 
 const MobileNavBar = () => {
   const [activeSection, setActiveSection] = useState("about");
